@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:16 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/13 00:02:52 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/13 00:49:28 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void execute_alias_cmd(char *file,char *cmd,char** envp)
     }
     else
     {
+        print_to_debug("YO, IM CALLED");
         argv_excve = malloc(2 * sizeof(char *));
         argv_excve[0] = try_cmd;
         argv_excve[1] = NULL;
@@ -63,10 +64,9 @@ int main(int argc, char **argv, char **envp)
 {
     char *infile;
     char *outfile;
+    int outfile_fd;
     char *cmd1;
     char *cmd2;
-    int infile_fd;
-    int outfile_fd;
     char **cmd_1_argv_excve;
     char **cmd_2_argv_excve;
     pid_t cmd1_process;
@@ -83,7 +83,6 @@ int main(int argc, char **argv, char **envp)
     cmd1 = argv[2];
     cmd2 = argv[3];
 	pipe(pipe_fds);
-    infile_fd = open(infile, O_RDONLY);
 	cmd1_type = get_command_type(cmd1);
     cmd2_type = get_command_type(cmd2);
     cmd_1_argv_excve = malloc(3 * sizeof(char *));
@@ -121,7 +120,21 @@ int main(int argc, char **argv, char **envp)
     {
 		close(pipe_fds[1]);
         wait(NULL);
+        dup2(outfile_fd, 1);
+        close(outfile_fd);
         dup2(pipe_fds[0], 0);
+        if(cmd2_type == PATH_CMD)
+        {
+            cmd_2_argv_excve[0] = cmd2;
+            cmd_2_argv_excve[1] = NULL;
+            if(execve(cmd2, cmd_2_argv_excve, envp) == -1)
+            {
+                perror("Error\n");
+                return 1;
+            }
+        }
+        else if (cmd2_type == ALIAS_CMD)
+            execute_alias_cmd(NULL,cmd2, envp);
     }
     free(cmd_1_argv_excve);
     free(cmd_2_argv_excve);
