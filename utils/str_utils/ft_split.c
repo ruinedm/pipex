@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 22:59:06 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/11 23:57:20 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/12 23:31:11 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ static size_t	ft_word_count(char const *s, char c)
 			count++;
 		}
 		else if (s[i] == c && in_word == 1)
-		{
 			in_word = 0;
-		}
+
 		i++;
 	}
 	return (count);

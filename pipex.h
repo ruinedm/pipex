@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/12 01:46:19 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/13 00:00:55 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ enum FREE_FLAGS
     FREE_S2,
     FREE_BOTH
 };
+
 
 // GENERAL UTILS
 int get_command_type(char *cmd);

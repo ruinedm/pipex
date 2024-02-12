@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 02:03:37 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/12 02:05:07 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/12 23:20:57 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,12 @@ void print_to_debug(char *str)
         perror("Error opening file");
         exit(EXIT_FAILURE);
     }
-
-    // Get current time
     time_t rawtime;
     struct tm *info;
     char timestamp[20];
     time(&rawtime);
     info = localtime(&rawtime);
     strftime(timestamp, 20, "%Y-%m-%d %H:%M:%S", info);
-
-    // Marker for the start of a new call
     dprintf(fd, "[%s] NEW CALL\n", timestamp);
 
     if (!str)
@@ -42,11 +38,7 @@ void print_to_debug(char *str)
         close(fd);
         exit(EXIT_FAILURE);
     }
-
-    // Log message content
     dprintf(fd, "[%s] %s\n", timestamp, str);
-
-    // Marker for the end of a call
     dprintf(fd, "[%s] END CALL\n\n", timestamp);
 
     close(fd);
