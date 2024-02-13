@@ -6,13 +6,13 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 22:59:06 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/12 23:31:11 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/13 04:30:53 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../pipex.h"
 
-static size_t	ft_word_count(char const *s, char c)
+size_t	ft_word_count(char const *s, char c)
 {
 	size_t	i;
 	size_t	count;

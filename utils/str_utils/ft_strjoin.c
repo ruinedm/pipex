@@ -6,31 +6,11 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 00:17:23 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/12 01:42:41 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/13 02:35:01 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../pipex.h"
-
-static char	*ft_strdup(const char *s1)
-{
-	char	*copy;
-	size_t	i;
-	size_t	len;
-
-	i = 0;
-	len = ft_strlen(s1);
-	copy = (char *)malloc(sizeof(char) * (len + 1));
-	if (!copy)
-		return (NULL);
-	while (i < len)
-	{
-		copy[i] = s1[i];
-		i++;
-	}
-	copy[i] = '\0';
-	return (copy);
-}
 
 static void free_strjoin(char *s1, char *s2, int free_flag)
 {

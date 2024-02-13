@@ -1,7 +1,7 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror
 NAME = pipex
-SRC = pipex.c utils/general_utils.c utils/paths_utils.c utils/str_utils/ft_split.c utils/str_utils/general_str_utils.c utils/str_utils/ft_strjoin.c debug.c
+SRC = pipex.c utils/linked_list_utils.c utils/parser.c utils/general_utils.c utils/paths_utils.c utils/str_utils/ft_split.c utils/str_utils/general_str_utils.c utils/str_utils/ft_strjoin.c debug.c
 OBJ = $(SRC:.c=.o)
 INCLUDE = pipex.h
 all: $(NAME)
@@ -12,8 +12,12 @@ $(NAME): $(OBJ)
 %.o: %.c $(INCLUDE)
 	$(CC) -c $< -o $@
 
+
 clean:
 	rm -f $(OBJ)
+
+aclean: all clean
+
 
 fclean: clean
 	rm -f $(NAME)

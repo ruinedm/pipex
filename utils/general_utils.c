@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 22:27:31 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/11 23:02:08 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/13 04:30:36 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int get_command_type(char *cmd)
     i = 0;
     while(cmd[i])
     {
-        if (!ft_isalpha(cmd[i]) && cmd[i] != '/')
+        if (!ft_isalpha(cmd[i]) && cmd[i] != '/' && cmd[i] != '-')
             return (INVALID_CMD);
         i++;
     }
