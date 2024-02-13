@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:16 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/13 00:49:28 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/13 01:02:11 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int main(int argc, char **argv, char **envp)
     {
 		close(pipe_fds[1]);
         wait(NULL);
+        outfile_fd = open(outfile, O_CREAT | O_RDWR, 0777);
         dup2(outfile_fd, 1);
         close(outfile_fd);
         dup2(pipe_fds[0], 0);
