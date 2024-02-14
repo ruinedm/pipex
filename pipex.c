@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:16 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/13 04:53:10 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/14 15:44:00 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,40 @@ void execute_alias_cmd(char *file,char *cmd,char** envp)
 //     return 0;
 // }
 
+// 0 READ END
+// 1 WRITE END
+
+void fork_and_execute(t_node *last_cmd, int cmd_count, char *infile, char *outfile, char **envp)
+{
+    int pipe_fds[2];
+    pid_t pid;
+    char *execve_argv[2];
+
+    if(cmd_count == 1)
+    {
+        execute_alias_cmd(outfile, last_cmd->input, envp);
+        return;
+    }
+    pipe(pipe_fds);
+    pid = fork();
+    if(!pid)
+    {
+        close(pipe_fds[0]);
+        dup2(pipe_fds[1], 1);
+        close(pipe_fds[1]);
+        cmd_count--;
+        fork_and_execute(last_cmd->prev, cmd_count, infile, outfile, envp);
+    }
+    else
+    {
+        waitpid(pid, NULL, 0);
+        close(pipe_fds[1]);
+        dup2(pipe_fds[0], 0);
+        execve_argv[0] = last_cmd->input;
+        execve_argv[1] = NULL;
+        execve(last_cmd->input, execve_argv, envp);
+    }
+}
 int main(int argc, char **argv)
 {
     t_node *input;

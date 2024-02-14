@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/13 04:42:48 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:35:33 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ typedef struct s_node
 {
     char *input;
     int type;
-    int cmd_type;
     struct s_node *next;
+    struct s_node *prev;
 } t_node;
 
 enum MODES
@@ -66,7 +66,7 @@ t_node *parser(int input_count,char **argv);
 // GENERAL UTILS
 int get_command_type(char *cmd);
 char **get_paths(char **envp);
-
+int count_commands(t_node *input);
 // STR UTILS
 char	**ft_split(char const *s, char c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);

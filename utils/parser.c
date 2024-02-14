@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:15:34 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/13 04:56:33 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:31:48 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ t_node *parser(int input_count,char **argv)
     t_node *head;
 
     head = ft_lstnew(ft_strdup(argv[1]));
-    head->cmd_type = -1;
     if(!ft_strcmp("here_doc", argv[1]))
     {
         head->type = HERE_DOC;

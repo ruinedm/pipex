@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 22:27:31 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/13 04:30:36 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/14 13:55:08 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,3 +39,17 @@ int get_command_type(char *cmd)
     }
     return (ALIAS_CMD);
 }
+int count_commands(t_node *input)
+{
+    int count;
+
+    count = 0;
+    while(input)
+    {
+        if(input->type == FIRST_COMMAND || input->type == PIPED_COMMAND || input->type == LAST_COMMAND)
+            count++;
+        input = input->next;
+    }
+    return (count);
+}
+

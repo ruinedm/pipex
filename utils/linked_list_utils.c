@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:20:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/13 03:56:23 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:31:35 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ t_node	*ft_lstnew(char *content)
 	if (!new_node)
 		return (NULL);
 	new_node->input = content;
+	new_node->type = -1;
 	new_node->next = NULL;
+	new_node->prev = NULL;
 	return (new_node);
 }
 
@@ -42,6 +44,8 @@ t_node	*ft_lstlast(t_node *lst)
 
 void	ft_lstadd_back(t_node **lst, t_node *new)
 {
+	t_node *last_node;
+
 	if (!lst)
 		return ;
 	if (!*lst)
@@ -49,7 +53,9 @@ void	ft_lstadd_back(t_node **lst, t_node *new)
 		*lst = new;
 		return ;
 	}
-	ft_lstlast(*lst)->next = new;
+	last_node = ft_lstlast(*lst);
+	last_node->next = new;
+	new->prev = last_node;
 }
 
 void	ft_lstclear(t_node **lst)
