@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/14 10:35:33 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/15 10:24:36 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdarg.h>
+#include <limits.h>
 
 typedef struct s_node
 {
@@ -26,6 +27,8 @@ typedef struct s_node
     struct s_node *next;
     struct s_node *prev;
 } t_node;
+
+#define BUFFER_SIZE 10
 
 enum MODES
 {
@@ -67,6 +70,7 @@ t_node *parser(int input_count,char **argv);
 int get_command_type(char *cmd);
 char **get_paths(char **envp);
 int count_commands(t_node *input);
+
 // STR UTILS
 char	**ft_split(char const *s, char c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
@@ -84,4 +88,18 @@ t_node	*ft_lstlast(t_node *lst);
 void	ft_lstadd_back(t_node **lst, t_node *new);
 void	ft_lstclear(t_node **lst);
 void	ft_lstiter(t_node *lst, void (*f)(char *, int));
+
+// GET_NEXT_LINE UTILS
+char	*get_next_line(int fd);
+char	*read_and_append(int fd, char **ptr_to_save);
+char	*extract_line(char **ptr_to_save);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*ft_strdup_gnl(char *s1);
+char	*ft_strchr(char *s, int c);
+char	*ft_substr(const char *s, unsigned int start, size_t len);
+size_t	ft_strlen(const char *s);
+
+
+// HERE_DOC UTILS
+void handle_here_doc_input(t_node *input, int tmp_file);
 #endif
