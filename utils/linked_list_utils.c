@@ -6,13 +6,13 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:20:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/14 10:31:35 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:29:34 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-t_node	*ft_lstnew(char *content)
+t_node	*ft_lstnew(char **content)
 {
 	t_node	*new_node;
 
@@ -61,25 +61,33 @@ void	ft_lstadd_back(t_node **lst, t_node *new)
 void	ft_lstclear(t_node **lst)
 {
 	t_node	*tmp;
+	char **cmd_array;
+	int i;
 
 	while (*lst != NULL)
 	{
 		tmp = (*lst)->next;
+		cmd_array= (*lst)->input;
+		i = 0;
+		while(cmd_array[i])
+		{
+			free(cmd_array[i]);
+			i++;
+		}
 		free((*lst)->input);
         free(*lst);
 		*lst = tmp;
 	}
 }
-void	ft_lstiter(t_node *lst, void (*f)(char *, int))
-{
-	t_node	*tmp;
+void ft_lstiter(t_node *lst, void (*f)(char **, int)) {
+    t_node *tmp;
 
-	if (lst == NULL || f == NULL)
-		return ;
-	while (lst != NULL)
-	{
-		tmp = lst->next;
-		f(lst->input, lst->type);
-		lst = tmp;
-	}
+    if (lst == NULL || f == NULL)
+        return;
+    
+    while (lst != NULL) {
+        tmp = lst->next;
+        f(lst->input, lst->type);
+        lst = tmp;
+    }
 }

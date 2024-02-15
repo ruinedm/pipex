@@ -7,7 +7,7 @@ INCLUDE = pipex.h
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC)  $^ -o $@
+	$(CC) $^ -o $@
 
 %.o: %.c $(INCLUDE)
 	$(CC) -c $< -o $@

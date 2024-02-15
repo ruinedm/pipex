@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/15 10:24:36 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:26:38 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 typedef struct s_node
 {
-    char *input;
+    char **input;
     int type;
     struct s_node *next;
     struct s_node *prev;
@@ -79,15 +79,15 @@ size_t ft_strlen(const char *str);
 int	ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup( char *s1);
 void print_to_debug(char *str);
-void print(char *input, int type);
+void print(char **input, int type);
 size_t	ft_word_count(char const *s, char c);
 
 // LINKED LIST UTILS
-t_node	*ft_lstnew(char *content);
+t_node	*ft_lstnew(char **content);
 t_node	*ft_lstlast(t_node *lst);
 void	ft_lstadd_back(t_node **lst, t_node *new);
 void	ft_lstclear(t_node **lst);
-void	ft_lstiter(t_node *lst, void (*f)(char *, int));
+void	ft_lstiter(t_node *lst, void (*f)(char **, int));
 
 // GET_NEXT_LINE UTILS
 char	*get_next_line(int fd);

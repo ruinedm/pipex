@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 09:00:33 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/15 10:26:34 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:26:23 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void handle_here_doc_input(t_node *input, int tmp_file)
         perror("Tmp file open");
         exit(EXIT_FAILURE);
     }
-    limiter = input->next->input;
+    limiter = input->next->input[0];
     limiter = ft_strjoin(limiter, "\n", DONT_FREE);
     write(1, "here_doc> ", 10);
     input_str = get_next_line(0);

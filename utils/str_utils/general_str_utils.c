@@ -6,31 +6,36 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 23:06:50 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/13 04:55:56 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:28:32 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../pipex.h"
 
-void print(char *input, int type)
-{
-	if(type == INFILE)
-		printf("INPUT: %s // TYPE: INFILE\n", input);
-	else if(type == OUTFILE)
-		printf("INPUT: %s // TYPE: OUTFILE\n", input);
-	else if(type== FIRST_COMMAND)
-		printf("INPUT: %s // TYPE: FIRST_COMMAND\n", input);
-	else if(type == LAST_COMMAND)
-		printf("INPUT: %s // TYPE: LAST_COMMAND\n", input);
-	else if(type == PIPED_COMMAND)
-		printf("INPUT: %s // TYPE: PIPED_COMMAND\n", input);
-	else if(type == HERE_DOC)
-		printf("INPUT: %s // TYPE: HERE_DOC\n", input);
-	else if(type == LIMITER)
-		printf("INPUT: %s // TYPE: LIMITER\n", input);
-		
-	// printf("INPUT: %s // TYPE: %i\n", input, type);
 
+void print(char **input, int type) {
+    if (input == NULL)
+        return;
+    
+    int i = 0;
+    while (input[i] != NULL) {
+        if (type == INFILE)
+            printf("INPUT: %s // TYPE: INFILE // ", input[i]);
+        else if (type == OUTFILE)
+            printf("INPUT: %s // TYPE: OUTFILE // ", input[i]);
+        else if (type == FIRST_COMMAND)
+            printf("INPUT: %s // TYPE: FIRST_COMMAND // ", input[i]);
+        else if (type == LAST_COMMAND)
+            printf("INPUT: %s // TYPE: LAST_COMMAND // ", input[i]);
+        else if (type == PIPED_COMMAND)
+            printf("INPUT: %s // TYPE: PIPED_COMMAND // ", input[i]);
+        else if (type == HERE_DOC)
+            printf("INPUT: %s // TYPE: HERE_DOC // ", input[i]);
+        else if (type == LIMITER)
+            printf("INPUT: %s // TYPE: LIMITER // ", input[i]);
+        i++;
+    }
+	printf("\n");
 }
 
 
