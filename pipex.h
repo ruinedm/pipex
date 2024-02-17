@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/15 18:26:38 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/17 10:21:26 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <fcntl.h>
 #include <stdarg.h>
 #include <limits.h>
-
+#include <string.h>
 typedef struct s_node
 {
     char **input;
@@ -47,13 +47,6 @@ enum INPUT_TYPES
     LAST_COMMAND // THE LAST COMMAND, WRITES TO THE OUTFILE
 };
 
-enum CMD_TYPES
-{
-    INVALID_CMD,
-    PATH_CMD,
-    ALIAS_CMD
-};
-
 enum FREE_FLAGS
 {
     DONT_FREE,
@@ -62,12 +55,13 @@ enum FREE_FLAGS
     FREE_BOTH
 };
 
+// EXCUTION UTILS
+void fork_and_execute(char *infile, char *outfile, t_node *input, int command_count, char **bin_paths, char **envp);
 // PARSING UTILS
 t_node *parser(int input_count,char **argv);
 
 
 // GENERAL UTILS
-int get_command_type(char *cmd);
 char **get_paths(char **envp);
 int count_commands(t_node *input);
 
