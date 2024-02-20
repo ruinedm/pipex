@@ -7,17 +7,21 @@ INCLUDE = pipex.h
 all: $(NAME) clean
 
 $(NAME): $(OBJ)
-	$(CC) $^ -o $@
+	@($(CC) $^ -o $@)
+	@echo "Executable linked successfully!"
 
 %.o: %.c $(INCLUDE)
-	$(CC) -c $< -o $@
-
+	@($(CC) -c $< -o $@)
+	@echo "Compiled $<"
 
 clean:
-	rm -f $(OBJ)
-
+	@rm -f $(OBJ)
+	@echo "Cleaned object files"
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f debug_file.txt
+	@rm -f $(NAME)
+	@rm -f debug_file.txt
+	@rm -f log.txt
+	@echo "Cleaned executable and debug files"
+
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/17 10:21:26 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:48:52 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,26 @@ typedef struct s_node
 {
     char **input;
     int type;
+    int pipe_fds[2];
     struct s_node *next;
     struct s_node *prev;
 } t_node;
 
+// typedef struct s_fd
+// {
+//     int pipe_fds[2];
+//     struct s_fd *next;
+//     struct s_fd *prev; 
+// } t_fd;
+
+
 #define BUFFER_SIZE 10
+
+enum BOOLEAN
+{
+    FALSE,
+    TRUE
+};
 
 enum MODES
 {
@@ -55,16 +70,29 @@ enum FREE_FLAGS
     FREE_BOTH
 };
 
+enum COUNTER_MODE
+{
+    GET,
+    INCREMENT
+};
+
+enum DUP2_MODE
+{
+    READ_END,
+    WRITE_END
+};
+
 // EXCUTION UTILS
 void fork_and_execute(char *infile, char *outfile, t_node *input, int command_count, char **bin_paths, char **envp);
 // PARSING UTILS
 t_node *parser(int input_count,char **argv);
-
-
+void print_open(t_node *first, int open); // TO REMOVE
 // GENERAL UTILS
 char **get_paths(char **envp);
 int count_commands(t_node *input);
-
+int fork_counter(int mode);
+void dup2_and_close(int read_end, int write_end,int dup_to ,int mode);
+int is_a_command(t_node *node);
 // STR UTILS
 char	**ft_split(char const *s, char c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
@@ -82,6 +110,7 @@ t_node	*ft_lstlast(t_node *lst);
 void	ft_lstadd_back(t_node **lst, t_node *new);
 void	ft_lstclear(t_node **lst);
 void	ft_lstiter(t_node *lst, void (*f)(char **, int));
+t_node *ft_lstfirst(t_node *lst);
 
 // GET_NEXT_LINE UTILS
 char	*get_next_line(int fd);

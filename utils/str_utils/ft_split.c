@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 22:59:06 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/16 19:23:57 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/17 18:02:07 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static char	**split_into_words(char const *s, char c, size_t word_count)
 	size_t	start;
 	char	**all_words;
 
-	all_words = (char **)malloc(sizeof(char *) * (word_count + 2));
+	all_words = (char **)malloc(sizeof(char *) * (word_count + 1));
 	if (!all_words)
 		return (NULL);
 	i = 0;
@@ -86,7 +86,6 @@ static char	**split_into_words(char const *s, char c, size_t word_count)
 		j++;
 	}
 	all_words[j] = NULL;
-	all_words[j + 1] = NULL;
 	return (all_words);
 }
 

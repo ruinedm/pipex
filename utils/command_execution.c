@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:10:09 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/17 10:30:45 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:48:26 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,66 +60,98 @@ static void execute_alias_cmd(char *file,char *cmd,char** envp)
     }
 }
 
-static void add_file(char *file, char **par_arr)
+void print_open(t_node *first, int mode)
 {
-    int i;
-
-    i = 0;
-    while(par_arr[i])
-        i++;
-    par_arr[i] = file;
+    if(mode == 1)
+        printf("START RUN FROM PID: %i\n", getpid());
+    else
+        printf("END RUN FROM PID: %i\n", getpid());
+    while(first)
+    {
+        if(is_a_command(first) && first->pipe_fds[0] != -1)
+        {
+            printf("READ: %i // WRITE: %i // CMD %s\n", first->pipe_fds[0], first->pipe_fds[1], first->input[0]);
+        }
+        first = first->next;
+    }
+    printf("-----------------------\n");
 }
+
+static void close_all_fds(t_node *input)
+{
+    t_node *first;
+    first = ft_lstfirst(input);
+    input = ft_lstfirst(input);
+    print_open(first, 1);
+    while(input)
+    {
+        if(is_a_command(input))
+        {
+            FILE *log_file = fopen("log.txt", "a");
+            fprintf(log_file, "NEW FDS: READ: %i // WRITE %i\n", input->pipe_fds[0], input->pipe_fds[1]);
+            fclose(log_file);
+            close(input->pipe_fds[0]);
+            close(input->pipe_fds[1]);
+            input->pipe_fds[0] = -1;
+            input->pipe_fds[1] = -1;
+        }
+        input = input->next;
+    }
+    print_open(first, 0);
+}
+
 
 static void execute_command(char *infile, char *outfile, t_node *command_node, char **bin_paths, char **envp)
 {
     int i;
     char *cmd_path;
 
-    if(command_node->type == FIRST_COMMAND)
-        add_file(infile, command_node->input);
     i = 0;
-    while(bin_paths[i])
-    {
-        cmd_path = ft_strjoin(bin_paths[i], command_node->input[0], DONT_FREE);
-        if(execve(cmd_path, command_node->input, envp) == -1)
-            i++;
-    }
+    // while(bin_paths[i])
+    // {
+    //     cmd_path = ft_strjoin(bin_paths[i], command_node->input[0], DONT_FREE);
+    //     if(execve(cmd_path, command_node->input, envp) == -1)
+    //         i++;
+    // }
+    // printf("EXECUTE WAS CALLED\n");
+    close_all_fds(command_node);
+    
+}
+int fork_counter(int mode)
+{
+    static int i;
+
+    if(mode == GET)
+        return i;
+    else
+        i++;
+    return -1;
 }
 
 
 void fork_and_execute(char *infile, char *outfile, t_node *input, int command_count, char **bin_paths, char **envp)
 {
     pid_t pid;
-    int pipe_fds[2];
 
-
-    if (command_count == 1) {
-        close(read_end);
-        dup2(write_end, 1);
-
-        // execute_command(infile, outfile, input, bin_paths, envp);
+    if (command_count == 1)
+    {
+        execute_command(infile, outfile, input, bin_paths, envp);
         return;
     }
 
     pid = fork();
-    if (pid == -1) {
+    if (pid == -1)
+    {
         perror("fork");
         return;
     }
-
-    if (!pid) 
+    if (!pid)
     {
-        close(read_end);
-        close(write_end); 
-
+        fork_counter(INCREMENT);
         fork_and_execute(infile, outfile, input->prev, command_count - 1, bin_paths, envp);
     }
     else 
     {
-        close(write_end);
-        dup2(read_end, 0);
-        close(read_end);
-
         waitpid(pid, NULL, 0);
         execute_command(infile, outfile, input, bin_paths, envp);
     }

@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:20:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/15 18:29:34 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:45:20 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_node	*ft_lstnew(char **content)
 		return (NULL);
 	new_node->input = content;
 	new_node->type = -1;
+	new_node->pipe_fds[0] = -1;
+	new_node->pipe_fds[1] = -1;
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return (new_node);
@@ -38,6 +40,20 @@ t_node	*ft_lstlast(t_node *lst)
 		if (!temp->next)
 			return (temp);
 		temp = temp->next;
+	}
+	return (lst);
+}
+
+t_node *ft_lstfirst(t_node *lst)
+{
+	t_node *temp;
+
+	temp = lst;
+	while(temp)
+	{
+		if(!temp->prev)
+			return (temp);
+		temp = temp->prev;
 	}
 	return (lst);
 }
