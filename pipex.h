@@ -20,6 +20,7 @@
 #include <stdarg.h>
 #include <limits.h>
 #include <string.h>
+#include <sys/wait.h>
 typedef struct s_node
 {
     char **input;
@@ -29,16 +30,9 @@ typedef struct s_node
     struct s_node *prev;
 } t_node;
 
-// typedef struct s_fd
-// {
-//     int pipe_fds[2];
-//     struct s_fd *next;
-//     struct s_fd *prev; 
-// } t_fd;
-
 
 #define BUFFER_SIZE 10
-
+#define OPEN_MAX 1000
 enum BOOLEAN
 {
     FALSE,
@@ -84,6 +78,7 @@ enum DUP2_MODE
 
 // EXCUTION UTILS
 void fork_and_execute(char *infile, char *outfile, t_node *input, int command_count, char **bin_paths, char **envp);
+void close_all_fds(t_node *input);
 // PARSING UTILS
 t_node *parser(int input_count,char **argv);
 void print_open(t_node *first, int open); // TO REMOVE

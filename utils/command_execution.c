@@ -13,7 +13,6 @@
 #include "../pipex.h"
 
 
-
 void print_open(t_node *first, int mode)
 {
     FILE *log_file = fopen("log.txt", "a");
@@ -32,7 +31,7 @@ void print_open(t_node *first, int mode)
     fclose(log_file);
 }
 
-static void close_all_fds(t_node *input)
+void close_all_fds(t_node *input)
 {
     input = ft_lstfirst(input);
     while(input)
@@ -41,8 +40,6 @@ static void close_all_fds(t_node *input)
         {
             close(input->pipe_fds[0]);
             close(input->pipe_fds[1]);
-            input->pipe_fds[0] = -1;
-            input->pipe_fds[1] = -1;
         }
         input = input->next;
     }
@@ -59,13 +56,13 @@ static void smart_dup2(t_node *command_node, char *infile, char *outfile)
     {
         dup2(infile_fd, STDIN_FILENO);
         dup2(command_node->pipe_fds[1], STDOUT_FILENO);
-    } 
+    }
     else if (command_node->type == LAST_COMMAND) 
     {
         dup2(command_node->prev->pipe_fds[0], STDIN_FILENO);
         dup2(outfile_fd, STDOUT_FILENO);
     } 
-    else 
+    else if (command_node->type == PIPED_COMMAND)
     {
         dup2(command_node->prev->pipe_fds[0], STDIN_FILENO);
         dup2(command_node->pipe_fds[1], STDOUT_FILENO);
@@ -81,11 +78,7 @@ static void execute_command(char *infile, char *outfile, t_node *command_node, c
 
     i = 0;
     smart_dup2(command_node, infile, outfile);
-    close_all_fds(command_node);
-    print_open(command_node, 1);
-    FILE *log_file = fopen("run.txt", "a");
-    fprintf(log_file, "RUNNING COMMAND %s on PID: %i\n", command_node->input[0], getpid());
-    fclose(log_file);
+    
     while(bin_paths[i])
     {
         cmd_path = ft_strjoin(bin_paths[i], command_node->input[0], DONT_FREE);
@@ -109,26 +102,24 @@ void fork_and_execute(char *infile, char *outfile, t_node *input, int command_co
 {
     pid_t pid;
 
-    if (command_count == 1)
-    {
-        execute_command(infile, outfile, input, bin_paths, envp);
-        return;
-    }
-
     pid = fork();
     if (pid == -1)
     {
         perror("fork");
         return;
     }
-    if (!pid)
+    if (pid == 0)
     {
-        fork_counter(INCREMENT);
-        fork_and_execute(infile, outfile, input->prev, command_count - 1, bin_paths, envp);
+        close_all_fds(input);
+        if (command_count > 1)
+            fork_and_execute(infile, outfile, input->prev, command_count - 1, bin_paths, envp);
+        else
+            execute_command(infile, outfile, input, bin_paths, envp);
+        exit(0);
     }
-    else 
+    else
     {
+        close_all_fds(input);
         waitpid(pid, NULL, 0);
-        execute_command(infile, outfile, input, bin_paths, envp);
     }
 }

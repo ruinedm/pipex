@@ -7,11 +7,11 @@ INCLUDE = pipex.h
 all: $(NAME) clean
 
 $(NAME): $(OBJ)
-	@($(CC) $^ -o $@)
+	@($(CC) $^ -g -o $@)
 	@echo "Executable linked successfully!"
 
 %.o: %.c $(INCLUDE)
-	@($(CC) -c $< -o $@)
+	@($(CC) -c -g $< -o $@)
 	@echo "Compiled $<"
 
 clean:
