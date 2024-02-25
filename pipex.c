@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:16 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/20 21:37:40 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/25 00:31:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ static void pipe_the_commands(t_node *cmd, int pipe_count)
     }
 }
 
+static void print(char **input, int type, int *pipe_fds)
+{
+    printf("COMMAND %s // TYPE: %i // READ END PIPE: %i // WRITE END PIPE :%i\n", input[0], type, pipe_fds[0], pipe_fds[1]);
+}
+
 int main(int argc, char **argv, char **envp)
 {
     t_node *input;
@@ -74,8 +79,10 @@ int main(int argc, char **argv, char **envp)
         unlink("/tmp/.here_doc");
     }
     command_count = count_commands(input);
-    printf("PARENT PID: %i\n", getpid());
     pipe_the_commands(input->next, command_count - 1);
+    // ft_lstiter(input, print);
     // print_open(ft_lstfirst(input));
-    fork_and_execute(argv[1], argv[argc-1],ft_lstlast(input)->prev, command_count, bin_paths, envp);
+    fork_and_execute(argv[1], argv[argc-1],input->next, command_count, bin_paths, envp);
+    close_all_fds(input);
+    while (wait(NULL) != -1);
 }

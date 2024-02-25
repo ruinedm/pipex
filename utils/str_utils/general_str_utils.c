@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   general_str_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 23:06:50 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/16 11:43:38 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/24 21:01:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../pipex.h"
 
 
-void print(char **input, int type) {
-    if (input == NULL)
-        return;
+// void print(char **input, int type) {
+//     if (input == NULL)
+//         return;
     
-    int i = 0;
-    while (input[i] != NULL) {
-        if (type == INFILE)
-            printf("INPUT: %s // TYPE: INFILE // ", input[i]);
-        else if (type == OUTFILE)
-            printf("INPUT: %s // TYPE: OUTFILE // ", input[i]);
-        else if (type == FIRST_COMMAND)
-            printf("INPUT: %s // TYPE: FIRST_COMMAND // ", input[i]);
-        else if (type == LAST_COMMAND)
-            printf("INPUT: %s // TYPE: LAST_COMMAND // ", input[i]);
-        else if (type == PIPED_COMMAND)
-            printf("INPUT: %s // TYPE: PIPED_COMMAND // ", input[i]);
-        else if (type == HERE_DOC)
-            printf("INPUT: %s // TYPE: HERE_DOC // ", input[i]);
-        else if (type == LIMITER)
-            printf("INPUT: %s // TYPE: LIMITER // ", input[i]);
-        i++;
-    }
-	printf("\n");
-}
+//     int i = 0;
+//     while (input[i] != NULL) {
+//         if (type == INFILE)
+//             printf("INPUT: %s // TYPE: INFILE // ", input[i]);
+//         else if (type == OUTFILE)
+//             printf("INPUT: %s // TYPE: OUTFILE // ", input[i]);
+//         else if (type == FIRST_COMMAND)
+//             printf("INPUT: %s // TYPE: FIRST_COMMAND // ", input[i]);
+//         else if (type == LAST_COMMAND)
+//             printf("INPUT: %s // TYPE: LAST_COMMAND // ", input[i]);
+//         else if (type == PIPED_COMMAND)
+//             printf("INPUT: %s // TYPE: PIPED_COMMAND // ", input[i]);
+//         else if (type == HERE_DOC)
+//             printf("INPUT: %s // TYPE: HERE_DOC // ", input[i]);
+//         else if (type == LIMITER)
+//             printf("INPUT: %s // TYPE: LIMITER // ", input[i]);
+//         i++;
+//     }
+// 	printf("\n");
+// }
 
 
 size_t ft_strlen(const char *str)

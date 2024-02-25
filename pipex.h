@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/20 16:48:52 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/24 21:02:11 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,10 @@ enum DUP2_MODE
 // EXCUTION UTILS
 void fork_and_execute(char *infile, char *outfile, t_node *input, int command_count, char **bin_paths, char **envp);
 void close_all_fds(t_node *input);
+void print_fds(t_node *first);
 // PARSING UTILS
 t_node *parser(int input_count,char **argv);
-void print_open(t_node *first, int open); // TO REMOVE
+void print_open(t_node *first); // TO REMOVE
 // GENERAL UTILS
 char **get_paths(char **envp);
 int count_commands(t_node *input);
@@ -96,7 +97,7 @@ size_t ft_strlen(const char *str);
 int	ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup( char *s1);
 void print_to_debug(char *str);
-void print(char **input, int type);
+// void print(char **input, int type);
 size_t	ft_word_count(char const *s, char c);
 
 // LINKED LIST UTILS
@@ -104,7 +105,7 @@ t_node	*ft_lstnew(char **content);
 t_node	*ft_lstlast(t_node *lst);
 void	ft_lstadd_back(t_node **lst, t_node *new);
 void	ft_lstclear(t_node **lst);
-void	ft_lstiter(t_node *lst, void (*f)(char **, int));
+void    ft_lstiter(t_node *lst, void (*f)(char **, int, int*));
 t_node *ft_lstfirst(t_node *lst);
 
 // GET_NEXT_LINE UTILS

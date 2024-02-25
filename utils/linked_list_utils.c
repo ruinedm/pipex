@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:20:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/20 16:45:20 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/24 21:02:02 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void	ft_lstclear(t_node **lst)
 		*lst = tmp;
 	}
 }
-void ft_lstiter(t_node *lst, void (*f)(char **, int)) {
+void ft_lstiter(t_node *lst, void (*f)(char **, int, int*)) 
+{
     t_node *tmp;
 
     if (lst == NULL || f == NULL)
@@ -103,7 +104,7 @@ void ft_lstiter(t_node *lst, void (*f)(char **, int)) {
     
     while (lst != NULL) {
         tmp = lst->next;
-        f(lst->input, lst->type);
+        f(lst->input, lst->type, lst->pipe_fds);
         lst = tmp;
     }
 }
