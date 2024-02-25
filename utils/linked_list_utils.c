@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:20:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/24 21:02:02 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/25 18:24:52 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,27 +74,28 @@ void	ft_lstadd_back(t_node **lst, t_node *new)
 	new->prev = last_node;
 }
 
-void	ft_lstclear(t_node **lst)
+void	ft_lstclear(t_node *lst)
 {
 	t_node	*tmp;
-	char **cmd_array;
+	char ** cmd_array;
 	int i;
 
-	while (*lst != NULL)
+	while (lst != NULL)
 	{
-		tmp = (*lst)->next;
-		cmd_array= (*lst)->input;
+		tmp = lst->next;
+		cmd_array = lst->input;
 		i = 0;
 		while(cmd_array[i])
 		{
 			free(cmd_array[i]);
 			i++;
 		}
-		free((*lst)->input);
-        free(*lst);
-		*lst = tmp;
+		free(lst->input);
+        free(lst);
+		lst = tmp;
 	}
 }
+
 void ft_lstiter(t_node *lst, void (*f)(char **, int, int*)) 
 {
     t_node *tmp;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 22:44:55 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/19 16:49:15 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/25 18:15:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char **get_paths(char **envp)
     char *path;
     char *tmp;
     char **binary_paths;
+    char *old;
     int i;
 
     path_index = get_path_index(envp);

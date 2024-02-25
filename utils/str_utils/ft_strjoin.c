@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 00:17:23 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/13 02:35:01 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/25 18:18:08 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static void free_strjoin(char *s1, char *s2, int free_flag)
 {
-    // if(free_flag == FREE_S1)
-    //     free(s1);
-    // else if (free_flag == FREE_S2)
-    //     free(s2);
-    // else if (free_flag == FREE_BOTH)
-    // {
-    //     free(s1);
-    //     free(s2);
-    // }
+    if(free_flag == FREE_S1)
+        free(s1);
+    else if (free_flag == FREE_S2)
+        free(s2);
+    else if (free_flag == FREE_BOTH)
+    {
+        free(s1);
+        free(s2);
+    }
 }
 char	*ft_strjoin(char *s1, char *s2, int free_flag)
 {
@@ -30,8 +30,12 @@ char	*ft_strjoin(char *s1, char *s2, int free_flag)
 	int		i;
 	int		j;
 
-	if (!s1 || !s2)
-        return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	else if(!s2)
+		return (ft_strdup(s1));
+	else if(!s1 && !s2)
+		return (NULL);
 	i = 0;
 	j = 0;
 	finalstr = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1)

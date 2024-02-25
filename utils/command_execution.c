@@ -6,20 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:10:09 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/25 00:33:35 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/25 18:28:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
-
-int is_fd_open(int fd) 
-{
-    int flags = fcntl(fd, F_GETFL);
-    if (flags == -1)
-        return 0; 
-    else 
-        return 1;
-}
 
 void close_all_fds(t_node *input)
 {
@@ -63,6 +54,8 @@ static void smart_dup2(t_node *command_node, char *infile, char *outfile)
     }
 }
 
+
+
 static void execute_command(char *infile, char *outfile, t_node *command_node, char **bin_paths, char **envp)
 {
     int i;
@@ -75,9 +68,16 @@ static void execute_command(char *infile, char *outfile, t_node *command_node, c
     {
         cmd_path = ft_strjoin(bin_paths[i], command_node->input[0], DONT_FREE);
         if(execve(cmd_path, command_node->input, envp) == -1)
+        {
+            free(cmd_path);
             i++;
+        }
     }
+    execve(command_node->input[0], command_node->input ,envp);
+    ft_lstclear(ft_lstfirst(command_node));
+    free_paths(bin_paths);
     perror("Error during executing command");
+    exit(1);
 }
 int fork_counter(int mode)
 {

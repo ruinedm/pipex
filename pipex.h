@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/24 21:02:11 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/25 18:24:59 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <limits.h>
 #include <string.h>
 #include <sys/wait.h>
+
 typedef struct s_node
 {
     char **input;
@@ -79,7 +80,7 @@ enum DUP2_MODE
 // EXCUTION UTILS
 void fork_and_execute(char *infile, char *outfile, t_node *input, int command_count, char **bin_paths, char **envp);
 void close_all_fds(t_node *input);
-void print_fds(t_node *first);
+
 // PARSING UTILS
 t_node *parser(int input_count,char **argv);
 void print_open(t_node *first); // TO REMOVE
@@ -97,14 +98,16 @@ size_t ft_strlen(const char *str);
 int	ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup( char *s1);
 void print_to_debug(char *str);
+
 // void print(char **input, int type);
 size_t	ft_word_count(char const *s, char c);
+void free_paths(char **bin_paths);
 
 // LINKED LIST UTILS
 t_node	*ft_lstnew(char **content);
 t_node	*ft_lstlast(t_node *lst);
 void	ft_lstadd_back(t_node **lst, t_node *new);
-void	ft_lstclear(t_node **lst);
+void	ft_lstclear(t_node *lst);
 void    ft_lstiter(t_node *lst, void (*f)(char **, int, int*));
 t_node *ft_lstfirst(t_node *lst);
 
@@ -117,7 +120,6 @@ char	*ft_strdup_gnl(char *s1);
 char	*ft_strchr(char *s, int c);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *s);
-
 
 // HERE_DOC UTILS
 void handle_here_doc_input(t_node *input, int tmp_file);

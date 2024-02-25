@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 23:06:50 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/24 21:01:01 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/25 18:09:00 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,17 @@ char	*ft_strdup( char *s1)
 	}
 	copy[i] = '\0';
 	return (copy);
+}
+
+void free_paths(char **bin_paths)
+{
+	int i;
+
+	i = 0;
+	while(bin_paths[i])
+	{
+		free(bin_paths[i]);
+		i++;
+	}
+	free(bin_paths);
 }

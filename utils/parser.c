@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:15:34 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/16 10:29:04 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/25 18:25:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void handle_error(t_node **head)
 {
-    ft_lstclear(head);
+    ft_lstclear(*head);
     printf("Mallocation error\n");
     exit(EXIT_FAILURE);
 }
@@ -117,7 +117,7 @@ t_node *parser(int input_count,char **argv)
         if(access(argv[1], F_OK))
         {
             printf("Invalid input: Infile [%s] doesn't exist!\n", argv[1]);
-            ft_lstclear(&head);
+            ft_lstclear(head);
             exit(EXIT_FAILURE);
         }
         head->type = INFILE;

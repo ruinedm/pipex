@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:16 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/25 00:33:49 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/25 18:25:02 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,7 @@ int main(int argc, char **argv, char **envp)
     pipe_the_commands(input->next, command_count - 1);
     fork_and_execute(argv[1], argv[argc-1],input->next, command_count, bin_paths, envp);
     close_all_fds(input);
-    while (wait(NULL) != -1);
+    while (wait(NULL) != -1); 
+    ft_lstclear(input);
+    free_paths(bin_paths);
 }
