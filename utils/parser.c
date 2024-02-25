@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:15:34 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/25 18:25:54 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/25 23:05:02 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void handle_here_doc_parsing(t_node **head, char **argv, int input_count)
         handle_error(head);
     last_cmd->type = LAST_COMMAND;
     ft_lstadd_back(head, last_cmd);
-    command_array = ft_split(argv[i], ' ');
+    command_array = ft_split(argv[input_count], ' ');
     outfile = ft_lstnew(command_array);
     if(!outfile)
         handle_error(head);

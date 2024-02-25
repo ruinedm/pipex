@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 09:00:33 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/16 12:08:13 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/25 23:03:27 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,10 @@ void handle_here_doc_input(t_node *input, int tmp_file)
         input_str = get_next_line(0);
     }
 }
-
+void shapeshift_here_doc(t_node *input)
+{
+    input->type = INFILE;
+    input->input = ft_split("/tmp/.here_doc", ' ');
+    input->next = input->next->next;
+    input->next->type = FIRST_COMMAND;
+}

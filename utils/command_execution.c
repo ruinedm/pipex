@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:10:09 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/25 18:28:16 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/25 23:16:11 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,8 @@ static void execute_command(char *infile, char *outfile, t_node *command_node, c
     perror("Error during executing command");
     exit(1);
 }
-int fork_counter(int mode)
-{
-    static int i;
 
-    if(mode == GET)
-        return i;
-    else
-        i++;
-    return -1;
-}
+
 
 
 void fork_and_execute(char *infile, char *outfile, t_node *input, int command_count, char **bin_paths, char **envp)
