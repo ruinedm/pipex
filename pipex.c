@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:16 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/25 00:31:27 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/25 00:33:49 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int main(int argc, char **argv, char **envp)
     int infile_fd;
     int command_count;
 
-    unlink("log.txt");
     tmp_file = -1;
     if (argc < 5)
     {
@@ -80,8 +79,6 @@ int main(int argc, char **argv, char **envp)
     }
     command_count = count_commands(input);
     pipe_the_commands(input->next, command_count - 1);
-    // ft_lstiter(input, print);
-    // print_open(ft_lstfirst(input));
     fork_and_execute(argv[1], argv[argc-1],input->next, command_count, bin_paths, envp);
     close_all_fds(input);
     while (wait(NULL) != -1);
