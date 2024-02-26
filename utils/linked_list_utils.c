@@ -6,13 +6,13 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:20:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/25 23:02:59 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:20:45 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-t_node	*ft_lstnew(char **content)
+t_node	*ft_lstnew(char **content, char *infile, char *outfile)
 {
 	t_node	*new_node;
 
@@ -20,6 +20,8 @@ t_node	*ft_lstnew(char **content)
 	if (!new_node)
 		return (NULL);
 	new_node->input = content;
+	new_node->infile = infile;
+	new_node->outfile = outfile;
 	new_node->type = -1;
 	new_node->pipe_fds[0] = -1;
 	new_node->pipe_fds[1] = -1;
@@ -96,7 +98,7 @@ void	ft_lstclear(t_node *lst)
 	}
 }
 
-void ft_lstiter(t_node *lst, void (*f)(char **, int, int*)) 
+void ft_lstiter(t_node *lst, void (*f)(char *, char *, char **, int, int*)) 
 {
     t_node *tmp;
 
@@ -106,7 +108,7 @@ void ft_lstiter(t_node *lst, void (*f)(char **, int, int*))
     while (lst != NULL) 
 	{
         tmp = lst->next;
-        f(lst->input, lst->type, lst->pipe_fds);
+        f(lst->infile, lst->outfile, lst->input, lst->type, lst->pipe_fds);
         lst = tmp;
     }
 }

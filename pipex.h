@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/25 23:15:28 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:21:18 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 typedef struct s_node
 {
+    char *infile;
+    char *outfile;
     char **input;
     int type;
     int pipe_fds[2];
@@ -64,10 +66,11 @@ enum FREE_FLAGS
     FREE_BOTH
 };
 
-enum COUNTER_MODE
+enum STORE_MOD
 {
     GET,
-    INCREMENT
+    SET,
+    OPEN_HERE_DOC
 };
 
 enum DUP2_MODE
@@ -76,11 +79,11 @@ enum DUP2_MODE
     WRITE_END
 };
 
-void print(char **input, int type, int *pipe_fds);
 
+void print(char *infile, char *outfile, char **input, int type, int *pipe_fds);
 
 // EXCUTION UTILS
-void fork_and_execute(char *infile, char *outfile, t_node *input, int command_count, char **bin_paths, char **envp);
+void fork_and_execute(t_node *input, int command_count, char **envp);
 void close_all_fds(t_node *input);
 
 // PARSING UTILS
@@ -88,7 +91,7 @@ t_node *parser(int input_count,char **argv);
 // GENERAL UTILS
 char **get_paths(char **envp);
 int count_commands(t_node *input);
-int fork_counter(int mode);
+char *argv_storage(int argc,char **argv, int mode, int to_get);
 void dup2_and_close(int read_end, int write_end,int dup_to ,int mode);
 int is_a_command(t_node *node);
 // STR UTILS
@@ -103,11 +106,11 @@ size_t	ft_word_count(char const *s, char c);
 void free_paths(char **bin_paths);
 void shapeshift_here_doc(t_node *input);
 // LINKED LIST UTILS
-t_node	*ft_lstnew(char **content);
+t_node	*ft_lstnew(char **content, char *infile, char *outfile);
 t_node	*ft_lstlast(t_node *lst);
 void	ft_lstadd_back(t_node **lst, t_node *new);
 void	ft_lstclear(t_node *lst);
-void    ft_lstiter(t_node *lst, void (*f)(char **, int, int*));
+void ft_lstiter(t_node *lst, void (*f)(char *, char *, char **, int, int*));
 t_node *ft_lstfirst(t_node *lst);
 
 // GET_NEXT_LINE UTILS

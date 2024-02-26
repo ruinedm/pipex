@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:10:09 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/25 23:16:11 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:25:43 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,21 @@ void close_all_fds(t_node *input)
     }
 }
 
-static void smart_dup2(t_node *command_node, char *infile, char *outfile) 
+static void smart_dup2(t_node *command_node) 
 {
     int infile_fd;
     int outfile_fd;
 
     if (command_node->type == FIRST_COMMAND) 
     {
-        infile_fd = open(infile, O_RDONLY);
+        infile_fd = open(command_node->infile, O_RDONLY);
         dup2(infile_fd, STDIN_FILENO);
         dup2(command_node->pipe_fds[1], STDOUT_FILENO);
         close(infile_fd);
     }
     else if (command_node->type == LAST_COMMAND)
     {
-        outfile_fd = open(outfile, O_WRONLY | O_CREAT , 0644);
+        outfile_fd = open(command_node->outfile, O_WRONLY | O_CREAT , 0644);
         dup2(command_node->prev->pipe_fds[0], STDIN_FILENO);
         dup2(outfile_fd, STDOUT_FILENO);
         close(outfile_fd);
@@ -56,13 +56,15 @@ static void smart_dup2(t_node *command_node, char *infile, char *outfile)
 
 
 
-static void execute_command(char *infile, char *outfile, t_node *command_node, char **bin_paths, char **envp)
+static void execute_command(t_node *command_node, char **envp)
 {
     int i;
     char *cmd_path;
+    char **bin_paths;
 
     i = 0;
-    smart_dup2(command_node, infile, outfile);
+    bin_paths = get_paths(envp);
+    smart_dup2(command_node);
     close_all_fds(command_node);
     while(bin_paths[i])
     {
@@ -81,9 +83,7 @@ static void execute_command(char *infile, char *outfile, t_node *command_node, c
 }
 
 
-
-
-void fork_and_execute(char *infile, char *outfile, t_node *input, int command_count, char **bin_paths, char **envp)
+void fork_and_execute(t_node *input, int command_count, char **envp)
 {
     pid_t pid;
 
@@ -96,7 +96,7 @@ void fork_and_execute(char *infile, char *outfile, t_node *input, int command_co
     if (pid == 0)
     {
         if (command_count > 1)
-            fork_and_execute(infile, outfile, input->next, command_count - 1, bin_paths, envp);
-        execute_command(infile, outfile, input, bin_paths, envp);
+            fork_and_execute(input->next, command_count - 1, envp);
+        execute_command(input, envp);
     }
 }

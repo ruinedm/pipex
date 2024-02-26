@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:15:34 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/25 23:05:02 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:17:59 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,99 +18,66 @@ static void handle_error(t_node **head)
     printf("Mallocation error\n");
     exit(EXIT_FAILURE);
 }
-static void handle_normal_parsing(t_node **head, char **argv, int input_count)
+static void add_command_node(t_node **head, char *command_str, int type) 
 {
-    int i;
-    t_node *first_cmd; // THE COMMAND THAT WILL EXECUTE WITH THE INFILE
-    t_node *last_cmd; // THE COMMAND THAT WILL WRITE TO THE OUTFILE
-    t_node *outfile;
-    t_node *looping_node;
     char **command_array;
+    t_node *cmd_node;
 
-    command_array = ft_split(argv[2], ' ');
-    first_cmd = ft_lstnew(command_array);
-    if(!first_cmd)
+    command_array =ft_split(command_str, ' ');
+    if(!command_array)
         handle_error(head);
-    first_cmd->type = FIRST_COMMAND;
-    ft_lstadd_back(head, first_cmd);
-    i = 3;
-    while(i < input_count - 1)
+    cmd_node = ft_lstnew(command_array, (*head)->infile, (*head)->outfile); // HANDLE ERROR
+    if(!command_array)
     {
-        command_array = ft_split(argv[i], ' ');
-        looping_node = ft_lstnew(command_array);
-        if(!looping_node)
-            handle_error(head);
-        looping_node->type = PIPED_COMMAND;
-        ft_lstadd_back(head, looping_node);
-        i++;
+        free(command_array);
+        handle_error(head);
     }
-    command_array = ft_split(argv[input_count -1], ' ');
-    last_cmd = ft_lstnew(command_array);
-    if(!last_cmd)
-        handle_error(head);
-    last_cmd->type = LAST_COMMAND;
-    ft_lstadd_back(head, last_cmd);
-    command_array = ft_split(argv[input_count], ' ');
-    outfile = ft_lstnew(command_array);
-    if(!outfile)
-        handle_error(head);
-    outfile->type = OUTFILE;
-    ft_lstadd_back(head, outfile);
+    cmd_node->type = type;
+    ft_lstadd_back(head, cmd_node);
 }
 
-static void handle_here_doc_parsing(t_node **head, char **argv, int input_count)
+static void handle_parsing(t_node **head, char **argv, int input_count, int limiter_type) 
 {
-    t_node *limiter;
-    t_node *outfile;
-    t_node *last_cmd;
-    t_node *looping_node;
     int i;
-    char **command_array;
 
-    command_array = ft_split(argv[2], ' ');
-    limiter = ft_lstnew(command_array);
-    if(!limiter)
-        handle_error(head);
-    limiter->type = LIMITER;
-    ft_lstadd_back(head, limiter);
     i = 3;
-    while(i < input_count - 1)
+    add_command_node(head, argv[2], limiter_type);
+    while (i < input_count) 
     {
-        command_array = ft_split(argv[i], ' ');
-        looping_node = ft_lstnew(command_array);
-        if(!looping_node)
-            handle_error(head);
-        looping_node->type = PIPED_COMMAND;
-        ft_lstadd_back(head, looping_node);
+        add_command_node(head, argv[i], PIPED_COMMAND);
         i++;
     }
-    command_array = ft_split(argv[i], ' ');
-    last_cmd = ft_lstnew(command_array);
-    if(!last_cmd)
-        handle_error(head);
-    last_cmd->type = LAST_COMMAND;
-    ft_lstadd_back(head, last_cmd);
-    command_array = ft_split(argv[input_count], ' ');
-    outfile = ft_lstnew(command_array);
-    if(!outfile)
-        handle_error(head);
-    outfile->type = OUTFILE;
-    ft_lstadd_back(head, outfile);
+    add_command_node(head, argv[input_count - 1], LAST_COMMAND);
+    add_command_node(head, argv[input_count], OUTFILE);
 }
 
-t_node *parser(int input_count,char **argv)
+static void change_for_here_doc(t_node *input)
+{
+    int tmp_file;
+
+    tmp_file = open("/tmp/.here_doc", O_RDONLY, 0777);
+    if(tmp_file == -1)
+    {
+        ft_lstclear(input);
+        exit(EXIT_FAILURE);
+    }
+    handle_here_doc_input(input, tmp_file);
+    shapeshift_here_doc(input);
+}
+
+t_node *parser(int input_count, char **argv)
 {
     int i;
     t_node *head;
     char **first_cmd_arr;
-    
+
     first_cmd_arr = ft_split(argv[1], ' ');
-    head = ft_lstnew(first_cmd_arr);
+    head = ft_lstnew(first_cmd_arr, argv[1], argv[input_count]);
     if(!ft_strcmp("here_doc", argv[1]))
     {
         head->type = HERE_DOC;
-        handle_here_doc_parsing(&head, argv, input_count);
-        return (head);
+        handle_parsing(&head, argv, input_count, LIMITER);
+        change_for_here_doc(head);
     }
     else
     {
@@ -121,7 +88,7 @@ t_node *parser(int input_count,char **argv)
             exit(EXIT_FAILURE);
         }
         head->type = INFILE;
-        handle_normal_parsing(&head, argv, input_count);
-        return (head);
+        handle_parsing(&head, argv, input_count, FIRST_COMMAND);
     }
+    return (head);
 }
