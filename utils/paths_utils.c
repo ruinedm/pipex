@@ -3,56 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   paths_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 22:44:55 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/25 18:15:14 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/26 23:13:25 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-
-static int get_path_index(char **envp)
+static int	get_path_index(char **envp)
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    i = 0;
-    while (envp[i])
-    {
-        if(envp[i][0] =='P' && envp[i][1] == 'A' && envp[i][2] == 'T' && envp[i][3] == 'H')
-            return (i);
-        i++;
-    }
-    return (-1);
-    
+	i = 0;
+	while (envp[i])
+	{
+		if (envp[i][0] == 'P' && envp[i][1] == 'A' && envp[i][2] == 'T'
+			&& envp[i][3] == 'H')
+			return (i);
+		i++;
+	}
+	return (-1);
 }
-char **get_paths(char **envp)
-{
-    int path_index;
-    char *path;
-    char *tmp;
-    char **binary_paths;
-    char *old;
-    int i;
 
-    path_index = get_path_index(envp);
-    i = 0;
-    if(path_index == -1)
-    {
-        perror("PATH ENVP WAS NOT FOUND!");
-        exit(EXIT_FAILURE);
-    }
-    path = envp[path_index];
-    while(*path != '/')
-        path++;
-    binary_paths = ft_split(path, ':');
-    i = 0;
-    while(binary_paths[i])
-    {
-        binary_paths[i] = ft_strjoin(binary_paths[i], "/", FREE_S1);
-        i++;
-    }
-    return(binary_paths);
+char	**get_paths(char **envp)
+{
+	int		path_index;
+	int		i;
+	char	*path;
+	char	**binary_paths;
+
+	path_index = get_path_index(envp);
+	i = 0;
+	if (path_index == -1)
+	{
+		perror("Path was not found!");
+		exit(EXIT_FAILURE);
+	}
+	i = 0;
+	path = envp[path_index];
+	while (*path != '/')
+		path++;
+	binary_paths = ft_split(path, ':');
+	while (binary_paths[i])
+	{
+		binary_paths[i] = ft_strjoin(binary_paths[i], "/", FREE_S1);
+		i++;
+	}
+	return (binary_paths);
 }

@@ -3,52 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   general_str_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 23:06:50 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/25 18:09:00 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/26 23:42:51 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../pipex.h"
 
-
-// void print(char **input, int type) {
-//     if (input == NULL)
-//         return;
-    
-//     int i = 0;
-//     while (input[i] != NULL) {
-//         if (type == INFILE)
-//             printf("INPUT: %s // TYPE: INFILE // ", input[i]);
-//         else if (type == OUTFILE)
-//             printf("INPUT: %s // TYPE: OUTFILE // ", input[i]);
-//         else if (type == FIRST_COMMAND)
-//             printf("INPUT: %s // TYPE: FIRST_COMMAND // ", input[i]);
-//         else if (type == LAST_COMMAND)
-//             printf("INPUT: %s // TYPE: LAST_COMMAND // ", input[i]);
-//         else if (type == PIPED_COMMAND)
-//             printf("INPUT: %s // TYPE: PIPED_COMMAND // ", input[i]);
-//         else if (type == HERE_DOC)
-//             printf("INPUT: %s // TYPE: HERE_DOC // ", input[i]);
-//         else if (type == LIMITER)
-//             printf("INPUT: %s // TYPE: LIMITER // ", input[i]);
-//         i++;
-//     }
-// 	printf("\n");
-// }
-
-
-size_t ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
-    size_t i;
+	size_t	i;
 
-    i = 0;
-    while(str[i])
-        i++;
-    return(i);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
-
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
@@ -102,12 +74,12 @@ char	*ft_strdup( char *s1)
 	return (copy);
 }
 
-void free_paths(char **bin_paths)
+void	free_paths(char **bin_paths)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(bin_paths[i])
+	while (bin_paths[i])
 	{
 		free(bin_paths[i]);
 		i++;

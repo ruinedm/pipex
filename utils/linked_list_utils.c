@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:20:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/26 21:08:58 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/26 23:03:00 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ t_node	*ft_lstlast(t_node *lst)
 	return (lst);
 }
 
-t_node *ft_lstfirst(t_node *lst)
+t_node	*ft_lstfirst(t_node *lst)
 {
-	t_node *temp;
+	t_node	*temp;
 
 	temp = lst;
-	while(temp)
+	while (temp)
 	{
-		if(!temp->prev)
+		if (!temp->prev)
 			return (temp);
 		temp = temp->prev;
 	}
@@ -62,7 +62,7 @@ t_node *ft_lstfirst(t_node *lst)
 
 void	ft_lstadd_back(t_node **lst, t_node *new)
 {
-	t_node *last_node;
+	t_node	*last_node;
 
 	if (!lst)
 		return ;
@@ -76,52 +76,24 @@ void	ft_lstadd_back(t_node **lst, t_node *new)
 	new->prev = last_node;
 }
 
-void	ft_clearone(t_node *node)
-{
-	int i;
-
-	i = 0;
-	while(node->input[i])
-	{
-		free(node->input[i]);
-		i++;
-	}
-	free(node->input);
-	free(node);
-}
 void	ft_lstclear(t_node *lst)
 {
 	t_node	*tmp;
-	char ** cmd_array;
-	int i;
+	char	**cmd_array;
+	int		i;
 
 	while (lst != NULL)
 	{
 		tmp = lst->next;
 		cmd_array = lst->input;
 		i = 0;
-		while(cmd_array[i])
+		while (cmd_array[i])
 		{
 			free(cmd_array[i]);
 			i++;
 		}
 		free(lst->input);
-        free(lst);
+		free(lst);
 		lst = tmp;
 	}
-}
-
-void ft_lstiter(t_node *lst, void (*f)(char *, char *, char **, int, int*)) 
-{
-    t_node *tmp;
-
-    if (lst == NULL || f == NULL)
-        return;
-    lst = ft_lstfirst(lst);
-    while (lst != NULL) 
-	{
-        tmp = lst->next;
-        f(lst->infile, lst->outfile, lst->input, lst->type, lst->pipe_fds);
-        lst = tmp;
-    }
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 22:59:06 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/25 18:07:31 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/26 22:57:51 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ size_t	ft_word_count(char const *s, char c)
 		}
 		else if (s[i] == c && in_word == 1)
 			in_word = 0;
-
 		i++;
 	}
 	return (count);
