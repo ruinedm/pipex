@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   bonus_get_next_line_utils.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 11:29:09 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/15 09:07:30 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 00:45:19 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../pipex.h"
+#include "../../bonus_pipex.h"
 
 size_t	ft_strlen_gnl(const char *s)
 {

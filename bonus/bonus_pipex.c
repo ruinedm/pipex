@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   bonus_pipex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:16 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/26 23:57:39 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 00:44:49 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "bonus_pipex.h"
 
-static void	ft_putstr(char *str, int fd)
+static void	ft_putendl_fd(char *str, int fd)
 {
 	int	i;
 
@@ -22,6 +22,7 @@ static void	ft_putstr(char *str, int fd)
 		write(fd, &str[i], 1);
 		i++;
 	}
+	write(fd, "\n", 1);
 }
 
 static void	pipe_the_commands(t_node *cmd, int pipe_count)
@@ -47,10 +48,12 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_node	*input;
 
-	if (argc != 5)
+	if (argc < 5)
 	{
-		ft_putstr("Usage: ./pipex <infile>", 2);
-		ft_putstr(" <cmd1> <cmd2> <outfile>\n", 2);
+		ft_putendl_fd("Usage: ./pipex <infile>", 2);
+		ft_putendl_fd("<cmd1> <cmd2> <cmd3> ... <outfile>\n", 2);
+		ft_putendl_fd("Or: ./pipex here_doc <LIMITER> <cmd1>", 2);
+		ft_putendl_fd("<cmd2> <cmd3> ... <outfile>\n", 2);
 		return (1);
 	}
 	input = parser(argc - 1, argv);

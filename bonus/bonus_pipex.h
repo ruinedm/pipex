@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   bonus_pipex.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 00:52:39 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 00:52:12 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef BONUS_PIPEX_H
+# define BONUS_PIPEX_H
 
 # include <fcntl.h>
 # include <limits.h>
@@ -51,6 +51,8 @@ enum				e_INPUT_TYPES
 {
 	INFILE,
 	OUTFILE,
+	HERE_DOC,
+	LIMITER,
 	FIRST_COMMAND,
 	PIPED_COMMAND,
 	LAST_COMMAND
@@ -98,7 +100,7 @@ int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strdup(char *s1);
 size_t				ft_word_count(char const *s, char c);
 void				free_paths(char **bin_paths);
-
+void				shapeshift_here_doc(t_node *input);
 // LINKED LIST UTILS
 void				ft_clearone(t_node *node);
 t_node				*ft_lstnew(char **content, char *infile, char *outfile);
@@ -107,4 +109,16 @@ void				ft_lstadd_back(t_node **lst, t_node *new);
 void				ft_lstclear(t_node *lst);
 t_node				*ft_lstfirst(t_node *lst);
 
+// GET_NEXT_LINE UTILS
+char				*get_next_line(int fd);
+char				*read_and_append(int fd, char **ptr_to_save);
+char				*extract_line(char **ptr_to_save);
+char				*ft_strjoin_gnl(char *s1, char *s2);
+char				*ft_strdup_gnl(char *s1);
+char				*ft_strchr(char *s, int c);
+char				*ft_substr(const char *s, unsigned int start, size_t len);
+size_t				ft_strlen(const char *s);
+
+// HERE_DOC UTILS
+void				handle_here_doc_input(t_node *input, int tmp_file);
 #endif

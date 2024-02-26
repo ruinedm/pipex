@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_execution.c                                :+:      :+:    :+:   */
+/*   bonus_command_execution.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:10:09 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 00:04:46 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 00:45:37 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../bonus_pipex.h"
 
 void	close_all_fds(t_node *input)
 {
@@ -88,8 +88,7 @@ void	fork_and_execute(t_node *input, int command_count, char **envp)
 	if (pid == -1)
 	{
 		perror("fork");
-		ft_lstclear(input);
-		exit(EXIT_FAILURE);
+		return ;
 	}
 	if (pid == 0)
 	{

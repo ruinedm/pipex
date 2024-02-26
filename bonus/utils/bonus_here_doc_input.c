@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc_input.c                                   :+:      :+:    :+:   */
+/*   bonus_here_doc_input.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 09:00:33 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/26 23:02:14 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 00:45:42 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../bonus_pipex.h"
 
 void	handle_here_doc_input(t_node *input, int tmp_file)
 {
