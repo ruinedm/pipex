@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:20:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/26 20:20:45 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/26 21:08:58 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,19 @@ void	ft_lstadd_back(t_node **lst, t_node *new)
 	new->prev = last_node;
 }
 
+void	ft_clearone(t_node *node)
+{
+	int i;
+
+	i = 0;
+	while(node->input[i])
+	{
+		free(node->input[i]);
+		i++;
+	}
+	free(node->input);
+	free(node);
+}
 void	ft_lstclear(t_node *lst)
 {
 	t_node	*tmp;

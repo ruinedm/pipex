@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 09:00:33 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/26 20:25:16 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/26 21:13:22 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void handle_here_doc_input(t_node *input, int tmp_file)
 {
     char *limiter;
     char *input_str;
+    char *old;
 
     if(tmp_file == -1)
     {
@@ -33,6 +34,10 @@ void handle_here_doc_input(t_node *input, int tmp_file)
         write(1, "here_doc> ", 10);
         input_str = get_next_line(0);
     }
+    free(limiter);
+    free(input_str);
+    if(!input_str)
+        return(unlink("/tmp/.here_doc"),handle_error(&input));
 }
 void shift_infile(t_node *lst) 
 {
@@ -46,10 +51,16 @@ void shift_infile(t_node *lst)
     }
 }
 
+void shapeshift_here_doc(t_node *input) {
 
-void shapeshift_here_doc(t_node *input)
-{
+    t_node *next_node;
+    t_node *double_next;
+
+    next_node = input->next;
+    double_next = input->next->next;
     shift_infile(input);
-    input->next = input->next->next;
+    double_next->prev = input;
+    input->next = double_next;
     input->next->type = FIRST_COMMAND;
+    ft_clearone(next_node);
 }

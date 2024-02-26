@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/26 20:21:18 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/26 21:25:13 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_node
 } t_node;
 
 #define BUFFER_SIZE 10
-
+#define OPEN_MAX 10000
 enum BOOLEAN
 {
     FALSE,
@@ -91,8 +91,7 @@ t_node *parser(int input_count,char **argv);
 // GENERAL UTILS
 char **get_paths(char **envp);
 int count_commands(t_node *input);
-char *argv_storage(int argc,char **argv, int mode, int to_get);
-void dup2_and_close(int read_end, int write_end,int dup_to ,int mode);
+void handle_error(t_node **head);
 int is_a_command(t_node *node);
 // STR UTILS
 char	**ft_split(char const *s, char c);
@@ -101,11 +100,11 @@ char	*ft_strjoin(char *s1, char *s2, int free_flag);
 size_t ft_strlen(const char *str);
 int	ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup( char *s1);
-
 size_t	ft_word_count(char const *s, char c);
 void free_paths(char **bin_paths);
 void shapeshift_here_doc(t_node *input);
 // LINKED LIST UTILS
+void	ft_clearone(t_node *node);
 t_node	*ft_lstnew(char **content, char *infile, char *outfile);
 t_node	*ft_lstlast(t_node *lst);
 void	ft_lstadd_back(t_node **lst, t_node *new);

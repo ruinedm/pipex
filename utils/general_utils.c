@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 22:27:31 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/26 19:15:09 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/26 21:03:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,6 @@ int is_a_command(t_node *node)
     return (FALSE);
 }
 
-void dup2_and_close(int read_end, int write_end,int dup_to ,int mode)
-{
-    if (mode == READ_END)
-    {
-        close(write_end);
-        dup2(read_end, dup_to);
-        printf("%i BECAME %i\n", read_end, dup_to);
-        close(read_end);
-    }
-    else if (mode == WRITE_END)
-    {
-        close(read_end);
-        dup2(write_end, dup_to);
-        printf("%i BECAME %i\n", read_end, dup_to);
-        close(write_end);
-    }
-}
 static int	ft_isalpha(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
@@ -57,3 +40,10 @@ int count_commands(t_node *input)
     return (count);
 }
 
+
+void handle_error(t_node **head)
+{
+    ft_lstclear(*head);
+    perror("Error");
+    exit(EXIT_FAILURE);
+}

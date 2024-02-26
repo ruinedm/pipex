@@ -3,41 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:16 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/26 20:28:04 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/26 21:25:08 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-
-
 static void pipe_the_commands(t_node *cmd, int pipe_count)
 {
     int i;
+    t_node *first;
 
     i = 0;
+    first = ft_lstfirst(cmd);
     while(i < pipe_count)
     {
-        pipe(cmd->pipe_fds);
+        if(pipe(cmd->pipe_fds) == -1)
+        {
+            close_all_fds(cmd);
+            handle_error(&first);
+        }
         cmd = cmd->next;
         i++;
     }
 }
 
-void print(char *infile, char *outfile, char **input, int type, int *pipe_fds)
-{
-    printf("INFILE %s // OUTFILE %s // COMMAND %s // TYPE: %i // READ END PIPE: %i // WRITE END PIPE :%i\n",infile, outfile, input[0], type, pipe_fds[0], pipe_fds[1]);
-}
-
-
-
 int main(int argc, char **argv, char **envp)
 {
     t_node *input;
-
 
     if (argc < 5)
     {
@@ -46,7 +42,6 @@ int main(int argc, char **argv, char **envp)
     }
     input = parser(argc - 1, argv);
     pipe_the_commands(input->next, count_commands(input) - 1);
-    ft_lstiter(input, print);
     fork_and_execute(input->next, count_commands(input), envp);
     close_all_fds(input);
     while (wait(NULL) != -1);

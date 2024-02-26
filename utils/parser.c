@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 02:15:34 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/26 20:17:59 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/26 21:24:44 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-static void handle_error(t_node **head)
-{
-    ft_lstclear(*head);
-    printf("Mallocation error\n");
-    exit(EXIT_FAILURE);
-}
-static void add_command_node(t_node **head, char *command_str, int type) 
+static void add_command_node(t_node **head, char *command_str, int type)
 {
     char **command_array;
     t_node *cmd_node;
@@ -55,7 +49,7 @@ static void change_for_here_doc(t_node *input)
 {
     int tmp_file;
 
-    tmp_file = open("/tmp/.here_doc", O_RDONLY, 0777);
+    tmp_file = open("/tmp/.here_doc", O_CREAT | O_RDWR, 0777);
     if(tmp_file == -1)
     {
         ft_lstclear(input);
@@ -73,6 +67,8 @@ t_node *parser(int input_count, char **argv)
 
     first_cmd_arr = ft_split(argv[1], ' ');
     head = ft_lstnew(first_cmd_arr, argv[1], argv[input_count]);
+    if(!head)
+        return(perror("Mallocation error"), exit(EXIT_FAILURE), NULL);
     if(!ft_strcmp("here_doc", argv[1]))
     {
         head->type = HERE_DOC;
