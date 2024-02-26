@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:16 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/26 23:41:10 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/26 23:55:54 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc < 5)
 	{
-		ft_putendl_fd(USAGE_ERROR, 2);
+		ft_putendl_fd("Usage: ./pipex <infile>", 2);
+		ft_putendl_fd("<cmd1> <cmd2> <cmd3> ... <outfile>\n", 2);
+		ft_putendl_fd("Or: ./pipex here_doc <LIMITER> <cmd1>", 2);
+		ft_putendl_fd("<cmd2> <cmd3> ... <outfile>\n", 2);
 		return (1);
 	}
 	input = parser(argc - 1, argv);

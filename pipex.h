@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/26 23:39:18 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/26 23:54:34 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,31 @@ typedef struct s_node
 }					t_node;
 
 # define BUFFER_SIZE 10
-# define USAGE_ERROR "Usage: ./pipex <infile> <cmd1> <cmd2> <cmd3> ... <outfile>\nOr: ./pipex here_doc <LIMITER> <cmd1> <cmd2> <cmd3> ... <outfile>\n"
-enum				BOOLEAN
+
+enum				e_BOOLEAN
 {
 	FALSE,
 	TRUE
 };
 
-enum				MODES
+enum				e_MODES
 {
 	INFILE_MODE,
 	HERE_DOC_MODE
 };
 
-enum				INPUT_TYPES
+enum				e_INPUT_TYPES
 {
-	INFILE,        // IF NO HERE_DOC, FIRST INPUT
-	OUTFILE,       // ALWAYS THE LAST INPUT
-	HERE_DOC,      // IF FIRST INPUT IS: here_doc, ITS THE FIRST INPUT
-	LIMITER,       // LIMITER FOR HERE_DOC
-	FIRST_COMMAND, // FIRST COMMAND, READS FROM THE INFILE
-	PIPED_COMMAND, // EVERY COMMAND BUT THE LAST ONE
-	LAST_COMMAND   // THE LAST COMMAND, WRITES TO THE OUTFILE
+	INFILE,
+	OUTFILE,
+	HERE_DOC,
+	LIMITER,
+	FIRST_COMMAND,
+	PIPED_COMMAND,
+	LAST_COMMAND
 };
 
-enum				FREE_FLAGS
+enum				e_FREE_FLAGS
 {
 	DONT_FREE,
 	FREE_S1,
@@ -66,19 +66,18 @@ enum				FREE_FLAGS
 	FREE_BOTH
 };
 
-enum				STORE_MOD
+enum				e_STORE_MOD
 {
 	GET,
 	SET,
 	OPEN_HERE_DOC
 };
 
-enum				DUP2_MODE
+enum				e_DUP2_MODE
 {
 	READ_END,
 	WRITE_END
 };
-
 
 // EXCUTION UTILS
 void				fork_and_execute(t_node *input, int command_count,
