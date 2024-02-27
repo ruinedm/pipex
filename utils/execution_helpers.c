@@ -6,14 +6,13 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:09:50 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 20:17:40 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:14:28 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-
-void	dumb_dup2(int old, int new, t_node* command_node)
+void	dumb_dup2(int old, int new, t_node *command_node)
 {
 	t_node	*first;
 
@@ -23,25 +22,23 @@ void	dumb_dup2(int old, int new, t_node* command_node)
 		close_all_fds(command_node);
 		handle_error(&first);
 	}
-
 }
 
-int		dumb_open(t_node *command_node, int mode)
+int	dumb_open(t_node *command_node, int mode)
 {
 	t_node	*first;
-	int i;
+	int		i;
 
 	first = ft_lstfirst(command_node);
-	if(mode == INFILE)
+	if (mode == INFILE)
 		i = open(command_node->infile, O_RDONLY, 0777);
 	else if (mode == OUTFILE)
 		i = open(command_node->outfile, O_WRONLY | O_CREAT
-			| O_TRUNC, 0777);
-	if(i == -1)
+				| O_TRUNC, 0777);
+	if (i == -1)
 	{
 		close_all_fds(command_node);
 		handle_error(&first);
 	}
 	return (i);
 }
-

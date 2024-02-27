@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:06 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 21:58:57 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:13:29 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	close_all_fds(input);
 	while (wait(NULL) != -1)
 		;
-	if(!ft_strcmp("here_doc", input->input[0]))
+	if (!ft_strcmp("here_doc", input->input[0]))
 	{
 		unlink(input->infile);
 		free(input->infile);

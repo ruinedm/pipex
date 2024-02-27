@@ -6,12 +6,11 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:48 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:00:02 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:13:02 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../bonus_pipex.h"
-
 
 static void	shift_infile(t_node *lst, char *here_doc_path)
 {

@@ -6,13 +6,12 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:13 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 21:31:57 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:13:42 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BONUS_PIPEX_H
 # define BONUS_PIPEX_H
-
 # include <fcntl.h>
 # include <limits.h>
 # include <stdarg.h>
@@ -73,13 +72,6 @@ enum				e_STORE_MOD
 	OPEN_HERE_DOC
 };
 
-// enum				e_DUP2_MODE
-// {
-// 	READ_END,
-// 	WRITE_END
-// };
-
-
 // EXCUTION UTILS
 void				fork_and_execute(t_node *input, int command_count,
 						char **envp);
@@ -120,6 +112,7 @@ char				*ft_substr(const char *s, unsigned int start, size_t len);
 size_t				ft_strlen(const char *s);
 
 // HERE_DOC UTILS
-void				handle_here_doc_input(t_node *input, int tmp_file, char *here_doc_path);
+void				handle_here_doc_input(t_node *input, int tmp_file,
+						char *here_doc_path);
 void				shapeshift_here_doc(t_node *input, char *here_doc_path);
 #endif

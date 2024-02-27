@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 21:30:35 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:13:25 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ static void	handle_parsing(t_node **head, char **argv, int input_count,
 
 static void	change_for_here_doc(t_node *input)
 {
-	int	tmp_file;
-	char *path;
-	char *path2;
+	int		tmp_file;
+	char	*path;
 
 	path = get_here_doc_path(input);
 	tmp_file = open(path, O_CREAT | O_RDWR, 0777);

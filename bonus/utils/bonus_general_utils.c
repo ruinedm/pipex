@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:41 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 20:15:20 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:12:58 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ int	count_commands(t_node *input)
 
 void	handle_error(t_node **head)
 {
+	if (!ft_strcmp("here_doc", (*head)->input[0]))
+	{
+		unlink((*head)->infile);
+		free((*head)->infile);
+	}
 	ft_lstclear(*head);
 	perror("Error");
 	exit(EXIT_FAILURE);

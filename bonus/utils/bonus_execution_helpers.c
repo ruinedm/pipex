@@ -6,13 +6,13 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:50:35 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 21:35:28 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:12:38 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../bonus_pipex.h"
 
-void	dumb_dup2(int old, int new, t_node* command_node)
+void	dumb_dup2(int old, int new, t_node *command_node)
 {
 	t_node	*first;
 
@@ -24,39 +24,40 @@ void	dumb_dup2(int old, int new, t_node* command_node)
 	}
 }
 
-int		dumb_open(t_node *command_node, int mode)
+int	dumb_open(t_node *command_node, int mode)
 {
 	t_node	*first;
-	int i;
+	int		i;
 
 	first = ft_lstfirst(command_node);
-	if(mode == INFILE)
+	if (mode == INFILE)
 		i = open(command_node->infile, O_RDONLY, 0777);
 	else if (mode == OUTFILE)
-		i = open(command_node->outfile, O_WRONLY | O_CREAT
-			| O_TRUNC, 0777);
-	if(i == -1)
+		i = open(command_node->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (i == -1)
 	{
 		close_all_fds(command_node);
 		handle_error(&first);
 	}
 	return (i);
 }
-char *get_here_doc_path(t_node *first)
+
+char	*get_here_doc_path(t_node *first)
 {
-	int i;
-	char *str;
-	char *num;
+	int		i;
+	char	*str;
+	char	*num;
 
 	i = 0;
 	while (TRUE)
 	{
 		num = ft_itoa(i);
-		if(!num)
+		if (!num)
 			return (close_all_fds(first), handle_error(&first), NULL);
 		str = ft_strjoin("/tmp/.here_doc", num, FREE_S2);
-		if(!str)
-			return (free(num), close_all_fds(first), handle_error(&first), NULL);
+		if (!str)
+			return (free(num), close_all_fds(first), handle_error(&first),
+				NULL);
 		if (access(str, F_OK) == -1)
 			return (str);
 		free(str);
