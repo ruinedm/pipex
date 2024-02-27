@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 20:56:25 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 21:30:35 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,10 @@ static void	change_for_here_doc(t_node *input)
 	char *path2;
 
 	path = get_here_doc_path(input);
-	path2 = ft_strdup(path);
 	tmp_file = open(path, O_CREAT | O_RDWR, 0777);
 	if (tmp_file == -1)
 		handle_error(&input);
 	handle_here_doc_input(input, tmp_file, path);
-	shapeshift_here_doc(input, path2);
 }
 
 t_node	*parser(int input_count, char **argv)

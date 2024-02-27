@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:50:35 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 20:31:54 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 21:35:28 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char *get_here_doc_path(t_node *first)
 	int i;
 	char *str;
 	char *num;
-	int acc;
 
 	i = 0;
 	while (TRUE)
@@ -58,10 +57,9 @@ char *get_here_doc_path(t_node *first)
 		str = ft_strjoin("/tmp/.here_doc", num, FREE_S2);
 		if(!str)
 			return (free(num), close_all_fds(first), handle_error(&first), NULL);
-		acc = access(str, F_OK);
-		free(str);
-		if (acc == -1)
+		if (access(str, F_OK) == -1)
 			return (str);
+		free(str);
 		i++;
 	}
 }

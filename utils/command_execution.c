@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:30:47 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 20:11:05 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 21:54:44 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	smart_dup2(t_node *command_node)
 
 	if (command_node->type == FIRST_COMMAND)
 	{
-		infile_fd = dumb_open(command_node, OUTFILE);
+		infile_fd = dumb_open(command_node, INFILE);
 		dumb_dup2(infile_fd, STDIN_FILENO, command_node);
 		dumb_dup2(command_node->pipe_fds[1], STDOUT_FILENO, command_node);
 		close(infile_fd);

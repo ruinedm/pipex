@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:06 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 20:43:27 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 21:58:57 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,6 @@ static void	pipe_the_commands(t_node *cmd, int pipe_count)
 	}
 }
 
-static void print(char *infile, char *outfile, char **input, int type, int *pipe_fds)
-{
-    printf("INFILE %s // OUTFILE %s // COMMAND %s // TYPE: %i // READ END PIPE: %i // WRITE END PIPE :%i\n",infile,outfile, input[0], type, pipe_fds[0], pipe_fds[1]);
-}
-
-void ft_lstiter(t_node *lst, void (*f)(char *, char *, char **, int, int*))
-{
-    t_node *tmp;
-
-    if (lst == NULL || f == NULL)
-        return;
-
-    while (lst != NULL) {
-        tmp = lst->next;
-        f(lst->infile, lst->outfile, lst->input, lst->type, lst->pipe_fds);
-        lst = tmp;
-    }
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_node	*input;
@@ -75,12 +56,15 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	input = parser(argc - 1, argv);
-	ft_lstiter(input, print);
-	// pipe_the_commands(input->next, count_commands(input) - 1);
-	// fork_and_execute(input->next, count_commands(input), envp);
-	// close_all_fds(input);
-	// while (wait(NULL) != -1)
-	// 	;
-	// unlink("/tmp/.here_doc");
-	// ft_lstclear(input);
+	pipe_the_commands(input->next, count_commands(input) - 1);
+	fork_and_execute(input->next, count_commands(input), envp);
+	close_all_fds(input);
+	while (wait(NULL) != -1)
+		;
+	if(!ft_strcmp("here_doc", input->input[0]))
+	{
+		unlink(input->infile);
+		free(input->infile);
+	}
+	ft_lstclear(input);
 }

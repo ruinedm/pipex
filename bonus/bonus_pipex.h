@@ -6,13 +6,13 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:13 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 20:54:53 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 21:31:57 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BONUS_PIPEX_H
 # define BONUS_PIPEX_H
-# define OPEN_MAX 10000
+
 # include <fcntl.h>
 # include <limits.h>
 # include <stdarg.h>
