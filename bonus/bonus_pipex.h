@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:13 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 15:32:18 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:54:53 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,20 @@ enum				e_STORE_MOD
 	OPEN_HERE_DOC
 };
 
-enum				e_DUP2_MODE
-{
-	READ_END,
-	WRITE_END
-};
+// enum				e_DUP2_MODE
+// {
+// 	READ_END,
+// 	WRITE_END
+// };
+
 
 // EXCUTION UTILS
 void				fork_and_execute(t_node *input, int command_count,
 						char **envp);
 void				close_all_fds(t_node *input);
-
+void				dumb_dup2(int old, int new, t_node*command_node);
+int					dumb_open(t_node *command_node, int mode);
+char				*get_here_doc_path(t_node *first);
 // PARSING UTILS
 char				**get_paths(char **envp);
 // GENERAL UTILS
@@ -93,14 +96,13 @@ int					is_a_command(t_node *node);
 t_node				*parser(int input_count, char **argv);
 // // STR UTILS
 char				**ft_split(char const *s, char c);
+char				*ft_itoa(int n);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char				*ft_strjoin(char *s1, char *s2, int free_flag);
 size_t				ft_strlen(const char *str);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strdup(char *s1);
-size_t				ft_word_count(char const *s, char c);
 void				free_paths(char **bin_paths);
-void				shapeshift_here_doc(t_node *input);
 // LINKED LIST UTILS
 void				ft_clearone(t_node *node);
 t_node				*ft_lstnew(char **content, char *infile, char *outfile);
@@ -118,5 +120,6 @@ char				*ft_substr(const char *s, unsigned int start, size_t len);
 size_t				ft_strlen(const char *s);
 
 // HERE_DOC UTILS
-void				handle_here_doc_input(t_node *input, int tmp_file);
+void				handle_here_doc_input(t_node *input, int tmp_file, char *here_doc_path);
+void				shapeshift_here_doc(t_node *input, char *here_doc_path);
 #endif

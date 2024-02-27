@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 15:31:58 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:56:25 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,23 @@ static void	handle_parsing(t_node **head, char **argv, int input_count,
 static void	change_for_here_doc(t_node *input)
 {
 	int	tmp_file;
+	char *path;
+	char *path2;
 
-	tmp_file = open("/tmp/.here_doc", O_CREAT | O_RDWR, 0777);
+	path = get_here_doc_path(input);
+	path2 = ft_strdup(path);
+	tmp_file = open(path, O_CREAT | O_RDWR, 0777);
 	if (tmp_file == -1)
-	{
-		ft_lstclear(input);
-		exit(EXIT_FAILURE);
-	}
-	handle_here_doc_input(input, tmp_file);
-	shapeshift_here_doc(input);
+		handle_error(&input);
+	handle_here_doc_input(input, tmp_file, path);
+	shapeshift_here_doc(input, path2);
 }
 
 t_node	*parser(int input_count, char **argv)
 {
 	int		i;
 	t_node	*head;
+	int		count;
 	char	**first_cmd_arr;
 
 	first_cmd_arr = ft_split(argv[1], ' ');

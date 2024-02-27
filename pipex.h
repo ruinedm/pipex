@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:30:19 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 15:30:23 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:10:32 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ enum				e_DUP2_MODE
 void				fork_and_execute(t_node *input, int command_count,
 						char **envp);
 void				close_all_fds(t_node *input);
-
+void				dumb_dup2(int old, int new, t_node* command_node);
+int					dumb_open(t_node *command_node, int mode);
 // PARSING UTILS
 char				**get_paths(char **envp);
 // GENERAL UTILS

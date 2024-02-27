@@ -6,13 +6,41 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:48 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 15:31:51 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:54:17 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../bonus_pipex.h"
 
-void	handle_here_doc_input(t_node *input, int tmp_file)
+
+static void	shift_infile(t_node *lst, char *here_doc_path)
+{
+	t_node	*tmp;
+
+	lst = ft_lstfirst(lst);
+	while (lst != NULL)
+	{
+		lst->infile = here_doc_path;
+		lst = lst->next;
+	}
+}
+
+
+void	shapeshift_here_doc(t_node *input, char *here_doc_path)
+{
+	t_node	*next_node;
+	t_node	*double_next;
+
+	next_node = input->next;
+	double_next = input->next->next;
+	printf("PATH :%s\n", here_doc_path);
+	shift_infile(input, here_doc_path);
+	double_next->prev = input;
+	input->next = double_next;
+	input->next->type = FIRST_COMMAND;
+	ft_clearone(next_node);
+}
+void	handle_here_doc_input(t_node *input, int tmp_file, char *here_doc_path)
 {
 	char	*limiter;
 	char	*input_str;
@@ -37,31 +65,5 @@ void	handle_here_doc_input(t_node *input, int tmp_file)
 	free(limiter);
 	free(input_str);
 	if (!input_str)
-		return (unlink("/tmp/.here_doc"), handle_error(&input));
-}
-
-void	shift_infile(t_node *lst)
-{
-	t_node	*tmp;
-
-	lst = ft_lstfirst(lst);
-	while (lst != NULL)
-	{
-		lst->infile = "/tmp/.here_doc";
-		lst = lst->next;
-	}
-}
-
-void	shapeshift_here_doc(t_node *input)
-{
-	t_node	*next_node;
-	t_node	*double_next;
-
-	next_node = input->next;
-	double_next = input->next->next;
-	shift_infile(input);
-	double_next->prev = input;
-	input->next = double_next;
-	input->next->type = FIRST_COMMAND;
-	ft_clearone(next_node);
+		return (unlink(here_doc_path), handle_error(&input));
 }
