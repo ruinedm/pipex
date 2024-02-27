@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bonus_pipex.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/27 15:32:13 by mboukour          #+#    #+#             */
+/*   Updated: 2024/02/27 15:32:18 by mboukour         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef BONUS_PIPEX_H
 # define BONUS_PIPEX_H
@@ -11,7 +21,7 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <unistd.h>
-  
+
 typedef struct s_node
 {
 	char			*infile;

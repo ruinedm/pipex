@@ -9,7 +9,7 @@ INCLUDE = pipex.h
 BONUS_SRC = bonus/bonus_pipex.c bonus/utils/bonus_command_execution.c bonus/utils/bonus_here_doc_input.c bonus/utils/bonus_get_next_line/bonus_get_next_line.c bonus/utils/bonus_get_next_line/bonus_get_next_line_utils.c bonus/utils/bonus_linked_list_utils.c bonus/utils/bonus_parser.c bonus/utils/bonus_general_utils.c bonus/utils/bonus_paths_utils.c bonus/utils/bonus_str_utils/bonus_ft_split.c bonus/utils/bonus_str_utils/bonus_general_str_utils.c bonus/utils/bonus_str_utils/bonus_ft_strjoin.c
 BONUS_OBJ = $(BONUS_SRC:.c=.o)
 BONUS_INCLUDE = bonus/bonus_pipex.h
-BONUS_NAME = pipexb
+BONUS_NAME = pipex_bonus
 
 all: $(NAME)
 
