@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:50:35 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:12:38 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:54:21 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	dumb_open(t_node *command_node, int mode)
 	t_node	*first;
 	int		i;
 
+	i = 0;
 	first = ft_lstfirst(command_node);
 	if (mode == INFILE)
 		i = open(command_node->infile, O_RDONLY, 0777);

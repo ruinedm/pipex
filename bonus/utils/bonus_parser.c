@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:13:25 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:55:02 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,7 @@ static void	change_for_here_doc(t_node *input)
 
 t_node	*parser(int input_count, char **argv)
 {
-	int		i;
 	t_node	*head;
-	int		count;
 	char	**first_cmd_arr;
 
 	first_cmd_arr = ft_split(argv[1], ' ');

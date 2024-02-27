@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:48 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:13:02 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:54:37 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static void	shift_infile(t_node *lst, char *here_doc_path)
 {
-	t_node	*tmp;
-
 	lst = ft_lstfirst(lst);
 	while (lst != NULL)
 	{
@@ -42,7 +40,6 @@ void	handle_here_doc_input(t_node *input, int tmp_file, char *here_doc_path)
 {
 	char	*limiter;
 	char	*input_str;
-	char	*old;
 
 	limiter = input->next->input[0];
 	limiter = ft_strjoin(limiter, "\n", DONT_FREE);

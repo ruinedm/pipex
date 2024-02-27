@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:30:51 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 15:30:53 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:55:45 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,6 @@ int	is_a_command(t_node *node)
 		|| node->type == LAST_COMMAND)
 		return (TRUE);
 	return (FALSE);
-}
-
-static int	ft_isalpha(int c)
-{
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-		return (1);
-	return (0);
 }
 
 int	count_commands(t_node *input)

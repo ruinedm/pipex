@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:04 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 15:31:06 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:53:24 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void	handle_parsing(t_node **head, char **argv, int input_count,
 
 t_node	*parser(int input_count, char **argv)
 {
-	int		i;
 	t_node	*head;
 	char	**first_cmd_arr;
 

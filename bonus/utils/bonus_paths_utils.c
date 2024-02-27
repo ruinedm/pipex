@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:01 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 15:32:03 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:55:22 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	get_path_index(char **envp)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (envp[i])

@@ -6,18 +6,18 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:13 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:13:42 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:51:51 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BONUS_PIPEX_H
 # define BONUS_PIPEX_H
+
 # include <fcntl.h>
 # include <limits.h>
 # include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <sys/wait.h>
 # include <unistd.h>
 
