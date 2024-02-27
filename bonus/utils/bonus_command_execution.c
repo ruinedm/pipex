@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:37 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 15:31:39 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:45:27 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,10 @@ static void	execute_command(t_node *command_node, char **envp)
 	char	**bin_paths;
 
 	i = 0;
-	bin_paths = get_paths(envp);
 	smart_dup2(command_node);
 	close_all_fds(command_node);
+	execve(command_node->input[0], command_node->input, envp);
+	bin_paths = get_paths(envp);
 	while (bin_paths[i])
 	{
 		cmd_path = ft_strjoin(bin_paths[i], command_node->input[0], DONT_FREE);
@@ -73,7 +74,6 @@ static void	execute_command(t_node *command_node, char **envp)
 			i++;
 		}
 	}
-	execve(command_node->input[0], command_node->input, envp);
 	ft_lstclear(ft_lstfirst(command_node));
 	free_paths(bin_paths);
 	perror("Error during executing command");
