@@ -6,13 +6,13 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 11:28:26 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 00:45:22 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 01:01:32 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../bonus_pipex.h"
 
-char	*append_buffer(char **ptr_to_save, char *buffer, int bytes_read)
+static char	*append_buffer(char **ptr_to_save, char *buffer, int bytes_read)
 {
 	char	*temp;
 
@@ -32,7 +32,7 @@ char	*append_buffer(char **ptr_to_save, char *buffer, int bytes_read)
 	return (*ptr_to_save);
 }
 
-char	*read_and_append(int fd, char **ptr_to_save)
+static char	*read_and_append(int fd, char **ptr_to_save)
 {
 	char	*buffer;
 	int		bytes_read;
@@ -58,7 +58,7 @@ char	*read_and_append(int fd, char **ptr_to_save)
 	return (*ptr_to_save);
 }
 
-char	*extract_line(char **ptr_to_save)
+static char	*extract_line(char **ptr_to_save, t_node *input)
 {
 	char	*line;
 	char	*temp;
@@ -72,7 +72,7 @@ char	*extract_line(char **ptr_to_save)
 		*ptr_to_save = ft_strdup_gnl(newline + 1);
 		free(temp);
 		if (!*ptr_to_save)
-			return (NULL);
+			handle_error(&input);
 	}
 	else
 	{
@@ -80,21 +80,21 @@ char	*extract_line(char **ptr_to_save)
 		free(*ptr_to_save);
 		*ptr_to_save = NULL;
 		if (!line)
-			return (NULL);
+			handle_error(&input);
 	}
 	return (line);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, t_node *input)
 {
 	static char	*save;
 	char		*line;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
-		return (NULL);
+		handle_error(&input);
 	save = read_and_append(fd, &save);
 	if (!save)
-		return (NULL);
-	line = extract_line(&save);
+		handle_error(&input);
+	line = extract_line(&save, input);
 	return (line);
 }

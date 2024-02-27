@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 00:52:12 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 01:04:08 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,7 @@ void				ft_lstclear(t_node *lst);
 t_node				*ft_lstfirst(t_node *lst);
 
 // GET_NEXT_LINE UTILS
-char				*get_next_line(int fd);
-char				*read_and_append(int fd, char **ptr_to_save);
-char				*extract_line(char **ptr_to_save);
+char				*get_next_line(int fd, t_node *input);
 char				*ft_strjoin_gnl(char *s1, char *s2);
 char				*ft_strdup_gnl(char *s1);
 char				*ft_strchr(char *s, int c);

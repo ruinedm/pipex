@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 09:00:33 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 00:45:42 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 01:02:32 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	handle_here_doc_input(t_node *input, int tmp_file)
 	limiter = input->next->input[0];
 	limiter = ft_strjoin(limiter, "\n", DONT_FREE);
 	write(1, "here_doc> ", 10);
-	input_str = get_next_line(0);
+	input_str = get_next_line(0, input);
 	while (input_str && ft_strcmp(input_str, limiter) != 0)
 	{
 		write(tmp_file, input_str, ft_strlen(input_str));
 		free(input_str);
 		write(1, "here_doc> ", 10);
-		input_str = get_next_line(0);
+		input_str = get_next_line(0, input);
 	}
 	free(limiter);
 	free(input_str);
