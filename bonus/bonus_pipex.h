@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   bonus_pipex.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:40:14 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 01:04:08 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/27 00:06:46 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BONUS_PIPEX_H
 # define BONUS_PIPEX_H
-
+# define OPEN_MAX 10000
 # include <fcntl.h>
 # include <limits.h>
 # include <stdarg.h>
@@ -21,7 +21,7 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <unistd.h>
-
+  
 typedef struct s_node
 {
 	char			*infile;

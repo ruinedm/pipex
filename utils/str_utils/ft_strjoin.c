@@ -1,24 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 00:17:23 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/26 23:44:34 by mboukour         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../pipex.h"
 
 static void	free_strjoin(char *s1, char *s2, int free_flag)
 {
 	if (free_flag == FREE_S1)
-	{
-		printf("HELLO NIGGA");
 		free(s1);
-	}
 	else if (free_flag == FREE_S2)
 		free(s2);
 	else if (free_flag == FREE_BOTH)
