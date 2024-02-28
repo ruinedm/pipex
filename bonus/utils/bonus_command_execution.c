@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:37 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:12:53 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/28 03:56:51 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,14 @@ void	fork_and_execute(t_node *input, int command_count, char **envp)
 	pid = fork();
 	if (pid == -1)
 	{
-		perror("fork");
 		first = ft_lstfirst(input);
+		if (first->type == HERE_DOC)
+		{
+			unlink(first->infile);
+			close(first->here_doc_fd);
+			free(first->infile);
+		}
+		close_all_fds(input);
 		handle_error(&first);
 	}
 	if (pid == 0)

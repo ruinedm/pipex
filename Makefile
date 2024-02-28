@@ -40,7 +40,8 @@ $(BONUS_NAME): $(BONUS_OBJ)
 	@($(CC) $(FLAGS) $^ -g -o $@)
 	@echo "Bonus executable linked successfully!"
 
-bonus_%.o: bonus_%.c $(BONUS_INCLUDE)
-	@($(CC) $(FLAGS) -c -g $< -o ./$@)
+
+bonus_%.o: bonus/%.c bonus/%.h
+	@($(CC) $(FLAGS) -c -g $< -o $@)
 	@echo "Compiled $<"
 

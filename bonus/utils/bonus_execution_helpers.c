@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:50:35 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:54:21 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/28 03:56:57 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ void	dumb_dup2(int old, int new, t_node *command_node)
 	first = ft_lstfirst(command_node);
 	if (dup2(old, new) == -1)
 	{
+		if (first->type == HERE_DOC)
+		{
+			unlink(first->infile);
+			close(first->here_doc_fd);
+			free(first->infile);
+		}
 		close_all_fds(command_node);
 		handle_error(&first);
 	}
@@ -37,6 +43,12 @@ int	dumb_open(t_node *command_node, int mode)
 		i = open(command_node->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (i == -1)
 	{
+		if (first->type == HERE_DOC)
+		{
+			unlink(first->infile);
+			close(first->here_doc_fd);
+			free(first->infile);
+		}
 		close_all_fds(command_node);
 		handle_error(&first);
 	}

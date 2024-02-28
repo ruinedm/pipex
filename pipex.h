@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:30:19 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:52:07 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/28 04:17:40 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,6 @@ enum				e_BOOLEAN
 	TRUE
 };
 
-enum				e_MODES
-{
-	INFILE_MODE,
-	HERE_DOC_MODE
-};
-
 enum				e_INPUT_TYPES
 {
 	INFILE,
@@ -61,13 +55,6 @@ enum				e_FREE_FLAGS
 	FREE_S1,
 	FREE_S2,
 	FREE_BOTH
-};
-
-enum				e_STORE_MOD
-{
-	GET,
-	SET,
-	OPEN_HERE_DOC
 };
 
 enum				e_DUP2_MODE
@@ -100,7 +87,6 @@ size_t				ft_word_count(char const *s, char c);
 void				free_paths(char **bin_paths);
 
 // LINKED LIST UTILS
-void				ft_clearone(t_node *node);
 t_node				*ft_lstnew(char **content, char *infile, char *outfile);
 t_node				*ft_lstlast(t_node *lst);
 void				ft_lstadd_back(t_node **lst, t_node *new);

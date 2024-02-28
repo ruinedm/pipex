@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:30:11 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:50:30 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/28 04:03:08 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ int	main(int argc, char **argv, char **envp)
 	close_all_fds(input);
 	while (wait(NULL) != -1)
 		;
-	unlink("/tmp/.here_doc");
 	ft_lstclear(input);
+	return (0);
 }

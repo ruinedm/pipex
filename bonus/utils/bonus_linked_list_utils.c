@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:52 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 15:31:54 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/28 02:52:43 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_node	*ft_lstnew(char **content, char *infile, char *outfile)
 	new_node->infile = infile;
 	new_node->outfile = outfile;
 	new_node->type = -1;
+	new_node->here_doc_fd = -1;
 	new_node->pipe_fds[0] = -1;
 	new_node->pipe_fds[1] = -1;
 	new_node->next = NULL;

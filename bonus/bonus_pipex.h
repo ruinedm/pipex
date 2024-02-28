@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:13 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:51:51 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/28 04:17:51 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_node
 	char			**input;
 	int				type;
 	int				pipe_fds[2];
+	int				here_doc_fd;
 	struct s_node	*next;
 	struct s_node	*prev;
 }					t_node;
@@ -63,13 +64,6 @@ enum				e_FREE_FLAGS
 	FREE_S1,
 	FREE_S2,
 	FREE_BOTH
-};
-
-enum				e_STORE_MOD
-{
-	GET,
-	SET,
-	OPEN_HERE_DOC
 };
 
 // EXCUTION UTILS
@@ -114,5 +108,4 @@ size_t				ft_strlen(const char *s);
 // HERE_DOC UTILS
 void				handle_here_doc_input(t_node *input, int tmp_file,
 						char *here_doc_path);
-void				shapeshift_here_doc(t_node *input, char *here_doc_path);
 #endif

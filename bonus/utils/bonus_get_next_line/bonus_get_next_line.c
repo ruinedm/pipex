@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:18 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 15:31:20 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/28 03:17:49 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*get_next_line(int fd, t_node *input)
 		handle_error(&input);
 	save = read_and_append(fd, &save);
 	if (!save)
-		handle_error(&input);
+		return (NULL);
 	line = extract_line(&save, input);
 	return (line);
 }

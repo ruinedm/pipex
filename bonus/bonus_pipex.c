@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:06 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:50:27 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/28 04:12:24 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,12 @@ int	main(int argc, char **argv, char **envp)
 	close_all_fds(input);
 	while (wait(NULL) != -1)
 		;
-	if (!ft_strcmp("here_doc", input->input[0]))
+	if (input->type == HERE_DOC)
 	{
 		unlink(input->infile);
+		close(input->here_doc_fd);
 		free(input->infile);
 	}
 	ft_lstclear(input);
+	return (0);
 }

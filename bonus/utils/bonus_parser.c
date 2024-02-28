@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:55:02 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/28 03:22:33 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ static void	change_for_here_doc(t_node *input)
 	path = get_here_doc_path(input);
 	tmp_file = open(path, O_CREAT | O_RDWR, 0777);
 	if (tmp_file == -1)
+	{
+		unlink(path);
 		handle_error(&input);
+	}
 	handle_here_doc_input(input, tmp_file, path);
 }
 
