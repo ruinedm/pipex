@@ -17,8 +17,18 @@ $(NAME): $(OBJ)
 	@($(CC) $(FLAGS) $(OBJ) -g -o $@)
 	@echo "Executable linked successfully!"
 
-%.o: %.c $(INCLUDE)
-	@($(CC) $(FLAGS) -c -g $< -o ./$@)
+$(OBJ): $(INCLUDE)
+
+bonus: $(BONUS_NAME)
+
+$(BONUS_NAME): $(BONUS_OBJ)
+	@($(CC) $(FLAGS) $^ -g -o $@)
+	@echo "Bonus executable linked successfully!"
+
+$(BONUS_OBJ): $(BONUS_INCLUDE)
+
+%.o: %.c
+	@($(CC) $(FLAGS) -c -g $< -o $@)
 	@echo "Compiled $<"
 
 clean:
@@ -33,15 +43,3 @@ fclean: clean
 	@echo "Cleaned executables for both mandatory and bonus"
 
 re: fclean all
-
-bonus: $(BONUS_NAME)
-
-$(BONUS_NAME): $(BONUS_OBJ)
-	@($(CC) $(FLAGS) $^ -g -o $@)
-	@echo "Bonus executable linked successfully!"
-
-
-bonus_%.o: bonus/%.c bonus/%.h
-	@($(CC) $(FLAGS) -c -g $< -o $@)
-	@echo "Compiled $<"
-
