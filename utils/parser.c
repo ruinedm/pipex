@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:04 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:53:24 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/29 22:04:45 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,9 @@ static void	add_command_node(t_node **head, char *command_str, int type)
 	ft_lstadd_back(head, cmd_node);
 }
 
-static void	handle_parsing(t_node **head, char **argv, int input_count,
-		int limiter_type)
+static void	handle_parsing(t_node **head, char **argv, int input_count)
 {
-	int	i;
-
-	i = 3;
-	add_command_node(head, argv[2], limiter_type);
-	while (i < input_count)
-	{
-		add_command_node(head, argv[i], PIPED_COMMAND);
-		i++;
-	}
+	add_command_node(head, argv[2], FIRST_COMMAND);
 	add_command_node(head, argv[input_count - 1], LAST_COMMAND);
 	add_command_node(head, argv[input_count], OUTFILE);
 }
@@ -49,16 +40,14 @@ static void	handle_parsing(t_node **head, char **argv, int input_count,
 t_node	*parser(int input_count, char **argv)
 {
 	t_node	*head;
-	char	**first_cmd_arr;
 
-	first_cmd_arr = ft_split(argv[1], ' ');
-	head = ft_lstnew(first_cmd_arr, argv[1], argv[input_count]);
+	head = ft_lstnew(NULL, argv[1], argv[input_count]);
 	if (!head)
 		return (perror("Mallocation error"), exit(EXIT_FAILURE), NULL);
 	if (access(argv[1], F_OK))
 		return (perror("Error when opening infile"), ft_lstclear(head),
 			exit(EXIT_FAILURE), NULL);
 	head->type = INFILE;
-	handle_parsing(&head, argv, input_count, FIRST_COMMAND);
+	handle_parsing(&head, argv, input_count);
 	return (head);
 }

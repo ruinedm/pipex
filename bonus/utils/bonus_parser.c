@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:56 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/28 03:22:33 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/29 22:06:09 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ static void	change_for_here_doc(t_node *input)
 t_node	*parser(int input_count, char **argv)
 {
 	t_node	*head;
-	char	**first_cmd_arr;
 
-	first_cmd_arr = ft_split(argv[1], ' ');
-	head = ft_lstnew(first_cmd_arr, argv[1], argv[input_count]);
+	head = ft_lstnew(NULL, argv[1], argv[input_count]);
 	if (!head)
 		return (perror("Mallocation error"), exit(EXIT_FAILURE), NULL);
 	if (!ft_strcmp("here_doc", argv[1]))

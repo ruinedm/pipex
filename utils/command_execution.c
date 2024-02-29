@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:30:47 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:49:08 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/29 22:42:51 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	close_all_fds(t_node *input)
 	{
 		if (is_a_command(first) && first->pipe_fds[0] != -1)
 		{
-			close(first->pipe_fds[0]);
-			close(first->pipe_fds[1]);
+			smarter_close(first->pipe_fds[0]);
+			smarter_close(first->pipe_fds[1]);
 		}
 		first = first->next;
 	}
@@ -38,14 +38,14 @@ static void	smart_dup2(t_node *command_node)
 		infile_fd = dumb_open(command_node, INFILE);
 		dumb_dup2(infile_fd, STDIN_FILENO, command_node);
 		dumb_dup2(command_node->pipe_fds[1], STDOUT_FILENO, command_node);
-		close(infile_fd);
+		smarter_close(infile_fd);
 	}
 	else if (command_node->type == LAST_COMMAND)
 	{
 		outfile_fd = dumb_open(command_node, OUTFILE);
 		dumb_dup2(command_node->prev->pipe_fds[0], STDIN_FILENO, command_node);
 		dumb_dup2(outfile_fd, STDOUT_FILENO, command_node);
-		close(outfile_fd);
+		smarter_close(outfile_fd);
 	}
 	else if (command_node->type == PIPED_COMMAND)
 	{
@@ -66,7 +66,7 @@ static void	execute_command(t_node *command_node, char **envp)
 	smart_dup2(command_node);
 	close_all_fds(command_node);
 	execve(command_node->input[0], command_node->input, envp);
-	bin_paths = get_paths(envp);
+	bin_paths = get_paths(envp, first);
 	while (bin_paths[i])
 	{
 		cmd_path = ft_strjoin(bin_paths[i], command_node->input[0], DONT_FREE);

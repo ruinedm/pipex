@@ -14,7 +14,7 @@ BONUS_NAME = pipex_bonus
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@($(CC) $(FLAGS) $(OBJ) -g -o $@)
+	@($(CC) $(FLAGS) $(OBJ) -o $@)
 	@echo "Executable linked successfully!"
 
 $(OBJ): $(INCLUDE)
@@ -22,13 +22,13 @@ $(OBJ): $(INCLUDE)
 bonus: $(BONUS_NAME)
 
 $(BONUS_NAME): $(BONUS_OBJ)
-	@($(CC) $(FLAGS) $^ -g -o $@)
+	@($(CC) $(FLAGS) $^ -o $@)
 	@echo "Bonus executable linked successfully!"
 
 $(BONUS_OBJ): $(BONUS_INCLUDE)
 
 %.o: %.c
-	@($(CC) $(FLAGS) -c -g $< -o $@)
+	@($(CC) $(FLAGS) -c $< -o $@)
 	@echo "Compiled $<"
 
 clean:

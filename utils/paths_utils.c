@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:08 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:53:56 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/29 22:51:54 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	get_path_index(char **envp)
 	return (-1);
 }
 
-char	**get_paths(char **envp)
+char	**get_paths(char **envp, t_node *first)
 {
 	int		path_index;
 	int		i;
@@ -35,17 +35,18 @@ char	**get_paths(char **envp)
 	char	**binary_paths;
 
 	path_index = get_path_index(envp);
-	i = 0;
 	if (path_index == -1)
+		binary_paths = ft_split(SECURE_PATH, ':');
+	else
 	{
-		perror("Path was not found!");
-		exit(EXIT_FAILURE);
+		path = envp[path_index];
+		while (*path != '/')
+			path++;
+		binary_paths = ft_split(path, ':');
 	}
+	if (!binary_paths)
+		handle_error(&first);
 	i = 0;
-	path = envp[path_index];
-	while (*path != '/')
-		path++;
-	binary_paths = ft_split(path, ':');
 	while (binary_paths[i])
 	{
 		binary_paths[i] = ft_strjoin(binary_paths[i], "/", FREE_S1);

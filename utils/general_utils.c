@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:30:51 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 22:55:45 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/29 22:49:52 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ int	count_commands(t_node *input)
 		input = input->next;
 	}
 	return (count);
+}
+
+void	smarter_close(int fd)
+{
+	int	tmp;
+
+	tmp = dup(fd);
+	if (tmp == -1)
+		return ;
+	close(tmp);
+	close(fd);
 }
 
 void	handle_error(t_node **head)

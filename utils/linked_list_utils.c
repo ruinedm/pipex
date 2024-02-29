@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:30:57 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/27 15:31:00 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/29 22:49:41 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_node	*ft_lstnew(char **content, char *infile, char *outfile)
 	new_node->infile = infile;
 	new_node->outfile = outfile;
 	new_node->type = -1;
+	new_node->infile_fd = -1;
+	new_node->outfile_fd = -1;
 	new_node->pipe_fds[0] = -1;
 	new_node->pipe_fds[1] = -1;
 	new_node->next = NULL;
@@ -87,12 +89,15 @@ void	ft_lstclear(t_node *lst)
 		tmp = lst->next;
 		cmd_array = lst->input;
 		i = 0;
-		while (cmd_array[i])
+		if (cmd_array)
 		{
-			free(cmd_array[i]);
-			i++;
+			while (cmd_array[i])
+			{
+				free(cmd_array[i]);
+				i++;
+			}
+			free(cmd_array);
 		}
-		free(lst->input);
 		free(lst);
 		lst = tmp;
 	}

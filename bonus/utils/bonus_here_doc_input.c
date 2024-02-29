@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:48 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/28 03:57:31 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/29 22:34:17 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static	void	smarter_handle_error(char *here_doc_path, int here_doc_fd,
 {
 	unlink(here_doc_path);
 	free(here_doc_path);
-	close(here_doc_fd);
+	smarter_close(here_doc_fd);
 	handle_error(&head);
 }
 
@@ -67,7 +67,5 @@ void	handle_here_doc_input(t_node *input, int tmp_file, char *here_doc_path)
 	}
 	free(limiter);
 	free(input_str);
-	if (!input_str)
-		smarter_handle_error(here_doc_path, tmp_file, input);
 	shapeshift_here_doc(input, here_doc_path, tmp_file);
 }

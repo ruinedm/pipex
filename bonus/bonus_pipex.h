@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:13 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/28 23:05:03 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/29 22:52:58 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_node
 	char			*outfile;
 	char			**input;
 	int				type;
+	int				infile_fd;
+	int				outfile_fd;
 	int				pipe_fds[2];
 	int				here_doc_fd;
 	struct s_node	*next;
@@ -34,17 +36,12 @@ typedef struct s_node
 }					t_node;
 
 # define BUFFER_SIZE 10
+# define SECURE_PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."
 
 enum				e_BOOLEAN
 {
 	FALSE,
 	TRUE
-};
-
-enum				e_MODES
-{
-	INFILE_MODE,
-	HERE_DOC_MODE
 };
 
 enum				e_INPUT_TYPES
@@ -73,13 +70,14 @@ void				close_all_fds(t_node *input);
 void				dumb_dup2(int old, int new, t_node*command_node);
 int					dumb_open(t_node *command_node, int mode);
 char				*get_here_doc_path(t_node *first);
-// PARSING UTILS
-char				**get_paths(char **envp);
+char				**get_paths(char **envp, t_node *first);
+
 // GENERAL UTILS
 int					count_commands(t_node *input);
 void				handle_error(t_node **head);
 int					is_a_command(t_node *node);
 t_node				*parser(int input_count, char **argv);
+void				smarter_close(int fd);
 // // STR UTILS
 char				**ft_split(char const *s, char c);
 char				*ft_itoa(int n);

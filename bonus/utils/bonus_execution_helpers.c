@@ -6,11 +6,34 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:50:35 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/28 03:56:57 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/02/29 22:52:46 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../bonus_pipex.h"
+
+static void	ft_lstset(t_node *node, int mode, int to_set)
+{
+	t_node	*first;
+
+	first = ft_lstfirst(node);
+	if (mode == INFILE)
+	{
+		while (first)
+		{
+			first->infile_fd = to_set;
+			first = first->next;
+		}
+	}
+	else if (mode == OUTFILE)
+	{
+		while (first)
+		{
+			first->outfile_fd = to_set;
+			first = first->next;
+		}
+	}
+}
 
 void	dumb_dup2(int old, int new, t_node *command_node)
 {
@@ -22,7 +45,7 @@ void	dumb_dup2(int old, int new, t_node *command_node)
 		if (first->type == HERE_DOC)
 		{
 			unlink(first->infile);
-			close(first->here_doc_fd);
+			smarter_close(first->here_doc_fd);
 			free(first->infile);
 		}
 		close_all_fds(command_node);
@@ -46,12 +69,14 @@ int	dumb_open(t_node *command_node, int mode)
 		if (first->type == HERE_DOC)
 		{
 			unlink(first->infile);
-			close(first->here_doc_fd);
+			smarter_close(first->here_doc_fd);
 			free(first->infile);
 		}
 		close_all_fds(command_node);
 		handle_error(&first);
 	}
+	else
+		ft_lstset(command_node, mode, i);
 	return (i);
 }
 
