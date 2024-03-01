@@ -6,11 +6,21 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:50:35 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/29 22:52:46 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:15:41 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../bonus_pipex.h"
+
+void	clean_here_doc(t_node *first)
+{
+	if (first->type == HERE_DOC)
+	{
+		smarter_close(first->here_doc_fd);
+		unlink(first->infile);
+		free(first->infile);
+	}
+}
 
 static void	ft_lstset(t_node *node, int mode, int to_set)
 {

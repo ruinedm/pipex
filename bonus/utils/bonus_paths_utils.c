@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:01 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/01 09:47:28 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:22:59 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ static void	slash_paths(char **binary_paths, t_node *first)
 	while (binary_paths[i])
 	{
 		binary_paths[i] = ft_strjoin(binary_paths[i], "/", FREE_S1);
-		if (i == 5)
+		if (!binary_paths[i])
 		{
+			clean_here_doc(first);
 			free_paths(binary_paths);
 			handle_error(&first);
 		}
@@ -63,7 +64,10 @@ char	**get_paths(char **envp, t_node *first)
 		binary_paths = ft_split(path, ':');
 	}
 	if (!binary_paths)
+	{
+		clean_here_doc(first);
 		handle_error(&first);
+	}
 	slash_paths(binary_paths, first);
 	return (binary_paths);
 }

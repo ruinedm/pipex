@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:37 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/29 22:43:22 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:14:32 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static void	execute_command(t_node *command_node, char **envp)
 			i++;
 		}
 	}
+	clean_here_doc(first);
 	free_paths(bin_paths);
 	handle_error(&first);
 }

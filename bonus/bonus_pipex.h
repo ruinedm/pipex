@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:13 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/01 09:52:09 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:18:13 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void				fork_and_execute(t_node *input, int command_count,
 void				close_all_fds(t_node *input);
 void				dumb_dup2(int old, int new, t_node*command_node);
 int					dumb_open(t_node *command_node, int mode);
-char				*get_here_doc_path(t_node *first);
 char				**get_paths(char **envp, t_node *first);
 
 // GENERAL UTILS
@@ -106,4 +105,7 @@ size_t				ft_strlen(const char *s);
 // HERE_DOC UTILS
 void				handle_here_doc_input(t_node *input, int tmp_file,
 						char *here_doc_path);
+char				*get_here_doc_path(t_node *first);
+void				clean_here_doc(t_node *first);
+
 #endif
