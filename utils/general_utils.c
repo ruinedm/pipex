@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:30:51 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/29 22:49:52 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/01 08:41:13 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,9 @@
 
 int	is_a_command(t_node *node)
 {
-	if (node->type == FIRST_COMMAND || node->type == PIPED_COMMAND
-		|| node->type == LAST_COMMAND)
+	if (node->type == FIRST_COMMAND || node->type == LAST_COMMAND)
 		return (TRUE);
 	return (FALSE);
-}
-
-int	count_commands(t_node *input)
-{
-	int	count;
-
-	count = 0;
-	while (input)
-	{
-		if (input->type == FIRST_COMMAND || input->type == PIPED_COMMAND
-			|| input->type == LAST_COMMAND)
-			count++;
-		input = input->next;
-	}
-	return (count);
 }
 
 void	smarter_close(int fd)

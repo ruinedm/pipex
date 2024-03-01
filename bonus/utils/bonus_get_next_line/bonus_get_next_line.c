@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:31:18 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/28 03:17:49 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/01 09:51:27 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ char	*get_next_line(int fd, t_node *input)
 	static char	*save;
 	char		*line;
 
-	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
-		handle_error(&input);
 	save = read_and_append(fd, &save);
 	if (!save)
 		return (NULL);

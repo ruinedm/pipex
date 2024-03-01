@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:30:11 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/28 23:08:57 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/01 08:38:42 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	input = parser(argc - 1, argv);
-	pipe_the_commands(input->next, count_commands(input) - 1);
-	fork_and_execute(input->next, count_commands(input), envp);
+	pipe_the_commands(input->next, 1);
+	fork_and_execute(input->next, 2, envp);
 	close_all_fds(input);
 	while (wait(NULL) != -1)
 		;

@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:30:19 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/29 22:51:25 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/01 09:52:27 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PIPEX_H
 
 # include <fcntl.h>
-# include <limits.h>
 # include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -34,7 +33,6 @@ typedef struct s_node
 	struct s_node	*prev;
 }					t_node;
 
-# define BUFFER_SIZE 10
 # define SECURE_PATH "/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."
 
 enum				e_BOOLEAN
@@ -48,7 +46,6 @@ enum				e_INPUT_TYPES
 	INFILE,
 	OUTFILE,
 	FIRST_COMMAND,
-	PIPED_COMMAND,
 	LAST_COMMAND
 };
 
@@ -63,17 +60,18 @@ enum				e_FREE_FLAGS
 // EXCUTION UTILS
 void				fork_and_execute(t_node *input, int command_count,
 						char **envp);
-void				close_all_fds(t_node *input);
-void				dumb_dup2(int old, int new, t_node *command_node);
-int					dumb_open(t_node *command_node, int mode);
 // PARSING UTILS
 char				**get_paths(char **envp, t_node *first);
+t_node				*parser(int input_count, char **argv);
+
 // GENERAL UTILS
-int					count_commands(t_node *input);
 void				handle_error(t_node **head);
 void				smarter_close(int fd);
 int					is_a_command(t_node *node);
-t_node				*parser(int input_count, char **argv);
+void				close_all_fds(t_node *input);
+void				dumb_dup2(int old, int new, t_node *command_node);
+int					dumb_open(t_node *command_node, int mode);
+
 // // STR UTILS
 char				**ft_split(char const *s, char c);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
@@ -81,7 +79,6 @@ char				*ft_strjoin(char *s1, char *s2, int free_flag);
 size_t				ft_strlen(const char *str);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strdup(char *s1);
-size_t				ft_word_count(char const *s, char c);
 void				free_paths(char **bin_paths);
 
 // LINKED LIST UTILS

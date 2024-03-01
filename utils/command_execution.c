@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:30:47 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/29 22:42:51 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/01 08:40:54 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ static void	smart_dup2(t_node *command_node)
 		dumb_dup2(command_node->prev->pipe_fds[0], STDIN_FILENO, command_node);
 		dumb_dup2(outfile_fd, STDOUT_FILENO, command_node);
 		smarter_close(outfile_fd);
-	}
-	else if (command_node->type == PIPED_COMMAND)
-	{
-		dumb_dup2(command_node->prev->pipe_fds[0], STDIN_FILENO, command_node);
-		dumb_dup2(command_node->pipe_fds[1], STDOUT_FILENO, command_node);
 	}
 }
 
@@ -95,7 +90,7 @@ void	fork_and_execute(t_node *input, int command_count, char **envp)
 	}
 	if (pid == 0)
 	{
-		if (command_count > 1)
+		if (command_count == 2)
 			fork_and_execute(input->next, command_count - 1, envp);
 		execute_command(input, envp);
 	}

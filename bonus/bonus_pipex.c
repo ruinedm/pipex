@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:06 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/29 22:38:18 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/01 09:15:18 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ static void	pipe_the_commands(t_node *cmd, int pipe_count)
 	{
 		if (pipe(cmd->pipe_fds) == -1)
 		{
+			if (first->type == HERE_DOC)
+			{
+				smarter_close(first->here_doc_fd);
+				unlink(first->infile);
+				free(first->infile);
+			}
 			close_all_fds(cmd);
 			handle_error(&first);
 		}

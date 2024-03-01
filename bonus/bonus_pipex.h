@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 15:32:13 by mboukour          #+#    #+#             */
-/*   Updated: 2024/02/29 22:52:58 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/01 09:52:09 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define BONUS_PIPEX_H
 
 # include <fcntl.h>
-# include <limits.h>
 # include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -78,7 +77,8 @@ void				handle_error(t_node **head);
 int					is_a_command(t_node *node);
 t_node				*parser(int input_count, char **argv);
 void				smarter_close(int fd);
-// // STR UTILS
+
+// STR UTILS
 char				**ft_split(char const *s, char c);
 char				*ft_itoa(int n);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
